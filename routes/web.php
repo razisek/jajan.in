@@ -25,6 +25,6 @@ Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('dashboard', function () {
-        return view('dashboard.index');
+        return view('dashboard.dashboard');
     })->name('page.dashboard');
 });
