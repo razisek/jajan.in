@@ -54,7 +54,7 @@
                             <li
                                 class="flex items-center pl-4 rounded-full hover:bg-primaryLight hover:text-primary {{ Route::is('page.dashboard') ? 'bg-primaryLight text-primary' : '' }}">
                                 <i class="bi bi-bar-chart-line"></i>
-                                <a href="#" class="block py-2 px-4">Overview</a>
+                                <a href="{{ route('page.dashboard') }}" class="block py-2 px-4">Overview</a>
                             </li>
                             <li class="flex items-center pl-4 rounded-full hover:bg-primaryLight hover:text-primary">
                                 <i class="bi bi-wallet2"></i>
@@ -65,9 +65,10 @@
                                 <a href="#" class="block py-2 px-4">Edit Page</a>
                             </li>
                             <hr class="w-4/5 h-px my-8 bg-[#E9E8E8] border-0">
-                            <li class="flex items-center pl-4 rounded-full hover:bg-primaryLight hover:text-primary">
+                            <li
+                                class="flex items-center pl-4 rounded-full hover:bg-primaryLight hover:text-primary {{ Route::is('page.post.index') || Route::is('page.post.create') ? 'bg-primaryLight text-primary' : '' }}">
                                 <i class="bi bi-file-text"></i>
-                                <a href="#" class="block py-2 px-4">Post</a>
+                                <a href="{{ route('page.post.index') }}" class="block py-2 px-4">Post</a>
                             </li>
                             <li class="flex items-center pl-4 rounded-full hover:bg-primaryLight hover:text-primary">
                                 <i class="bi bi-gift"></i>
@@ -106,6 +107,8 @@
             </div>
         </div>
     </div>
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    @yield('script')
 </body>
 
 </html>
