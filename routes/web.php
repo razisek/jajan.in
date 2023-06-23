@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,9 +30,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
         return view('dashboard.dashboard');
     })->name('page.dashboard');
 
+    // post
     Route::get('post', [PostController::class, 'index'])->name('page.post.index');
     Route::get('post/create', [PostController::class, 'create'])->name('page.post.create');
     Route::post('post', [PostController::class, 'store'])->name('page.post.store');
     Route::get('post/{post}/edit', [PostController::class, 'edit'])->name('page.post.edit');
     Route::delete('post/{post}', [PostController::class, 'destroy'])->name('page.post.destroy');
+
+    // page
+    Route::get('page', [PageController::class, 'index'])->name('page.page.index');
 });

@@ -9,6 +9,9 @@
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
         integrity="sha384-b6lVK+yci+bfDmaY1u0zE8YYJt0TZxLEAFyYSLHId4xoVvsrQu3INevFKo+Xir8e" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
 </head>
 
 <body>
@@ -60,9 +63,10 @@
                                 <i class="bi bi-wallet2"></i>
                                 <a href="#" class="block py-2 px-4">My Balance</a>
                             </li>
-                            <li class="flex items-center pl-4 rounded-full hover:bg-primaryLight hover:text-primary">
+                            <li
+                                class="flex items-center pl-4 rounded-full hover:bg-primaryLight hover:text-primary {{ Route::is('page.page.index') ? 'bg-primaryLight text-primary' : '' }}">
                                 <i class="bi bi-pencil-square"></i>
-                                <a href="#" class="block py-2 px-4">Edit Page</a>
+                                <a href="{{ route('page.page.index') }}" class="block py-2 px-4">Edit Page</a>
                             </li>
                             <hr class="w-4/5 h-px my-8 bg-[#E9E8E8] border-0">
                             <li
