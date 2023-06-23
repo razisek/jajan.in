@@ -1,3 +1,290 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+}
+
+.header {
+    background-color: #7149c6;
+}
+
+.menu_separator {
+    border-left: 3px solid #9071d3;
+    height: 40px;
+    margin-left: -3px;
+    top: 0;
+}
+
+.menu_navigation li{
+    padding: 10px;
+    font-size: 18px;
+    color: white;
+
+}
+
+.nav_pad {
+    padding-top: 5px;
+}
+
+.search_icon {
+    width: auto;
+    height: 25px;
+}
+
+.lgn_btn {
+    background-color: #ff7000;
+    color: white;
+    font-size: 18px;
+}
+.lgn_btn:hover{
+    background-color: #ff9200;
+    color: white;
+    font-size: 18px;
+}
+
+/* cta */
+.cta {
+    background-color: #7149c6;
+    color: white;
+    padding-bottom: 200px;
+}
+.cta_left {
+    max-width: 50%;
+}
+
+.cta_right {
+    max-width: 50%;
+}
+
+.cta_input {
+    background-color: #662ea7;
+    width: 500px;
+}
+
+.create_input{
+    outline: none;
+}
+
+/* counter */
+
+.counter {
+    padding: 0 85px;
+    width: 1312px;
+    height: 126px;
+    background-color: white;
+    margin: -63px auto;
+    /* justify-items: center; */
+}
+.counter_img {
+    margin-right: 25px;
+}
+.counter_count {
+    font-size: 50px;
+    color: #7149c6;
+    font-weight: bold;
+}
+.counter_content {
+    margin-top: -15px;
+    color: #ababab;
+}
+
+/* about us */
+.about_us {
+    padding-top: 200px;
+    padding-bottom: 100px;
+}
+
+.about_us_left {
+    max-width: 45%;
+}
+.about_us_right {
+    max-width: 50%;
+}
+
+.about_us_title {
+    color: #7149c6;
+}
+
+.about_us_point {
+    padding: 15px 0;
+}
+
+.aboutus_icon {
+    width: auto;
+    height: 45px;
+    margin-right: 20px;
+}
+
+/* howwork */
+.howwork {
+    padding-top: 100px;
+    padding-bottom: 100px;
+}
+
+.howwork_title {
+    color: #7149c6;
+    font-size: 40px;
+    font-weight: bold;
+}
+
+.howwork_content_title {
+    color: #7149c6;
+}
+
+.howwork_content {
+    padding: 0 8%;
+    padding-top: 30px;
+}
+
+.howwork_point {
+    max-width: 350px;
+}
+
+.howwork_img {
+    width: auto;
+    height: 182px;
+}
+
+.howwork_arrow {
+    width: 280px;
+    height: 80px;
+    margin-top: 60px;
+    margin-bottom: 70px;
+    margin-left: -45px;
+    margin-right: -45px;
+}
+
+/* why */
+
+.why {
+    background-color: #7149c6;
+    /* Full height */
+    height: 80%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.why_content {
+    padding-bottom: 15%;
+}
+.why_point {
+    width: 300px;
+    height: 300px;
+    background-color: rgba(93, 42, 153, 0.6);
+    padding: 50px 30px;
+    padding-bottom: 30px;
+    border-radius: 40px;
+    border: 2px solid #ffffff;
+}
+
+.why_img{
+    width: auto;
+    height: 75px;
+    padding: 10px 0;
+}
+
+/* trust */
+.trust_title {
+    color: #7149c6;
+    font-size: 30px;
+    font-weight: bold;
+}
+
+.trust_desk{
+    width: 540px;
+
+}
+
+.trust_button_category {
+    padding: 5px 20px;
+    margin: 0 10px;
+}
+
+.trust_button_category:hover {
+    background-color: #d9cef0;
+    color: #7149c6;
+    padding: 5px 20px;
+}
+
+.lgn_btn {
+    background-color: #ff7000;
+    color: white;
+    font-size: 18px;
+}
+
+.lgn_btn:hover {
+    background-color: #ff9200;
+    color: white;
+    font-size: 18px;
+}
+
+.testimoni_content {
+    background-color: #f4f0fa;
+    border: 2px solid #7149c6;
+    border-radius: 20px;
+    width: 640px;
+    padding: 20px;
+}
+
+.testimoni_img {
+    margin-top: -50px;
+    padding-right: 20px;
+}
+
+.testimoni_user {
+    width: 425px;
+}
+
+.folowors_cake_img{
+    width: 24px;
+    height: 20px;   
+}
+
+.testimoni_folowers {
+    background-color: #ffffff;
+    border-radius: 10px;
+    padding: 5px;
+    width: 275px;
+}
+
+/* qna */
+.qna_tittle {
+    color: #7149c6;
+    font-size: 48px;
+    font-weight: bold;
+}
+
+.qna_opsi {
+    /* background-color: #f4f0fa; */
+    border: 2px solid #7149c6;
+    width: 640px;
+    padding: 20px;
+    margin: 30px 0;
+}
+
+/* footer */
+.footer {
+    background-color: #7149c6;
+    color: white;
+    padding: 20px;
+}
+
+.line_separator {
+    
+    border: 2px solid #8866cf;
+}
+
+.footer {
+    font-size: 18px;
+}
