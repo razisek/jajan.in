@@ -12,8 +12,29 @@
 </head>
 
 <body>
+    <div class="header justify-between p-5 px-24 flex flex-wrap flex-col md:flex-row md:items-center items-center">
+        <div class="logo">
+            <a href="/"><img
+                    src="https://res.cloudinary.com/dgmwbkto1/image/upload/v1687538877/jajanin_logo2_clbyam.png"
+                    alt="Jajanin Logo"></a>
+        </div>
+        <div class="menu_navigation">
+            <ul class="flex content-center">
+                <li><a class="nav_pad flex" href="#"><i class="bi bi-search mr-3"></i>Explorer Creator</a>
+                </li>
+                <li>
+                    <div class="menu_separator"></div>
+                </li>
+                <li><a class="nav_pad flex" href="{{ route('page.register') }}">Register</a></li>
+                <li><a href="{{ route('page.login') }}"><button
+                            class="lgn_btn inline-flex items-center border-0 mx-4 py-2 px-8 focus:outline-none rounded-full text-base mt-4 md:mt-0">Login
+                        </button></a></li>
+            </ul>
+        </div>
+    </div>
     <div class="h-screen w-full bg-primary grid place-items-center">
         <div class="bg-white p-8 rounded-xl w-2/6 flex justify-center flex-col items-center">
+            <p class="text-3xl font-bold mb-6">Masuk</p>
             <div
                 class="flex justify-start items-center border-2 border-black px-8 py-3 w-4/5 rounded-full cursor-pointer text-sm">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2008px-Google_%22G%22_Logo.svg.png"
