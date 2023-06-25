@@ -8,12 +8,14 @@
         <div class="border-b border-gray-200">
             <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                 <li class="mr-2">
-                    <a href="{{ route('page.page.index') }}" class="inline-flex p-4 border-b-2 rounded-t-lg group text-primary border-primary">
+                    <a href="{{ route('page.page.index') }}"
+                        class="inline-flex p-4 border-b-2 rounded-t-lg group text-primary border-primary">
                         <i class="bi bi-grid-1x2-fill mr-2"></i>Profile Page
                     </a>
                 </li>
                 <li class="mr-2">
-                    <a href="{{ route('page.unit.index') }}" class="inline-flex p-4 border-b-2 rounded-t-lg group hover:text-primary">
+                    <a href="{{ route('page.unit.index') }}"
+                        class="inline-flex p-4 border-b-2 rounded-t-lg group hover:text-primary">
                         <i class="bi bi-coin mr-2"></i>Unit Jajanin
                     </a>
                 </li>
@@ -53,7 +55,7 @@
                     <div
                         class="mt-4 text-sm text-primary flex items-center gap-3 border-2 w-56 justify-center py-1 border-primary rounded-full shadow-lg cursor-pointer">
                         <i class="bi bi-plus-circle-fill"></i>
-                        <p class="font-medium">Add Social Media Links</p>
+                        <p id="open-sosmed" class="font-medium">Add Social Media Links</p>
                     </div>
                 </div>
                 <div class="mt-8">
@@ -118,6 +120,53 @@
                 </button>
             </div>
         </div>
+
+        <div id="modal-sosmed" class="fixed hidden inset-0 bg-gray-800 bg-opacity-70 z-50 transition-all duration-300">
+            <div
+                class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl transition-all duration-300">
+                <div class="relative max-h-full transition-all duration-300">
+                    <div class="bg-white p-4 rounded-md">
+                        <div class="w-[600px] flex justify-between items-center font-semibold">
+                            <p class="text-lg">Social and Links</p>
+                            <i id="modal-sosmed-close" class="bi bi-x-lg cursor-pointer"></i>
+                        </div>
+                        <hr class="w-full h-px my-4 bg-gray-300 border-0">
+                        <div class="p-6">
+                            <div class="flex items-center">
+                                <p class="text-base font-medium w-2/6">Social Platform</p>
+                                <select id="social-list"
+                                    class="w-4/6 border text-base border-gray-300 rounded-md px-3 py-2 placeholder-primaryLight focus:border-primary focus:border-1 outline-none">
+                                    <option value="fb">Facebook</option>
+                                    <option value="tw">Twitter</option>
+                                    <option value="tt">Tiktok</option>
+                                    <option value="ig">Instagram</option>
+                                    <option value="yt">Youtube</option>
+                                    <option value="dc">Dicord</option>
+                                    <option value="web">Website</option>
+                                </select>
+                            </div>
+                            <div class="flex items-center mt-5">
+                                <p class="text-base font-medium w-2/6">Social Link</p>
+                                <div class="w-4/6">
+                                    <div class="relative flex flex-wrap items-stretch">
+                                        <span
+                                            class="flex items-center whitespace-nowrap bg-primaryLight border border-primaryLight rounded-l-md border-r-0 px-3 py-[0.25rem] text-center text-base font-normal leading-[1.6] text-black"
+                                            id="social-link">https://facebook.com/</span>
+                                        <input type="text" id="social-user" placeholder="Username"
+                                            class="border text-base relative m-0 block w-[1px] min-w-0 flex-auto border-gray-300 rounded-r-md px-4 py-2 focus:border-primary focus:border-1 outline-none ">
+                                    </div>
+                                </div>
+                            </div>
+                            <button
+                                class="w-44 bg-secondary text-white py-2 rounded-full shadow-lg mt-6 font-bold text-sm">
+                                <i class="fa-solid fa-floppy-disk mr-3"></i>
+                                Simpan
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 @endsection
 
@@ -137,6 +186,49 @@
             const url = URL.createObjectURL(file);
             const img = document.getElementById('headerPreview');
             img.src = url;
+        });
+
+        const openSosmed = document.getElementById('open-sosmed');
+        const modalSosmed = document.getElementById('modal-sosmed');
+        const modalSosmedClose = document.getElementById('modal-sosmed-close');
+
+        openSosmed.addEventListener('click', () => {
+            modalSosmed.classList.remove('hidden');
+        });
+
+        modalSosmedClose.addEventListener('click', () => {
+            modalSosmed.classList.add('hidden');
+        });
+
+        $('#social-list').on('change', function() {
+            if ($(this).val() == 'fb') {
+                $('#social-link').text('https://facebook.com/');
+                $('#social-user').attr('placeholder', 'Username');
+            }
+            if ($(this).val() == 'tw') {
+                $('#social-link').text('https://twitter.com/');
+                $('#social-user').attr('placeholder', 'Username');
+            }
+            if ($(this).val() == 'tt') {
+                $('#social-link').text('https://tiktok.com/');
+                $('#social-user').attr('placeholder', 'Username');
+            }
+            if ($(this).val() == 'ig') {
+                $('#social-link').text('https://instagram.com/');
+                $('#social-user').attr('placeholder', 'Username');
+            }
+            if ($(this).val() == 'yt') {
+                $('#social-link').text('https://youtube.com/');
+                $('#social-user').attr('placeholder', 'Channel');
+            }
+            if ($(this).val() == 'dc') {
+                $('#social-link').text('https://discord.com/');
+                $('#social-user').attr('placeholder', 'Username');
+            }
+            if ($(this).val() == 'web') {
+                $('#social-link').text('https://');
+                $('#social-user').attr('placeholder', 'Website Url');
+            }
         });
     </script>
 @endsection
