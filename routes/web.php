@@ -40,4 +40,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // page
     Route::get('page', [PageController::class, 'index'])->name('page.page.index');
     Route::get('page/unit', [PageController::class, 'unit'])->name('page.unit.index');
+
+    // social links
+    Route::post('social-links', [PageController::class, 'socialLinks'])->name('api.social-links');
+    Route::get('social-links/{id}/delete', [PageController::class, 'deleteSocialLink'])->name('api.social-links.delete');
 });

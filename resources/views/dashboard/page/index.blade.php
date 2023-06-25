@@ -3,6 +3,10 @@
 @section('title', 'Manage Page')
 
 @section('content')
+    <div id="loading" class="hidden fixed inset-0 bg-gray-800 bg-opacity-70 z-50">
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-2xl">Please wait...
+        </div>
+    </div>
     <div>
         <p class="font-semibold text-3xl mb-3">Edit Page Information</p>
         <div class="border-b border-gray-200">
@@ -52,11 +56,18 @@
                 </div>
                 <div class="mt-8">
                     <p class="text-xs font-bold text-[#747474]">Social Media Links</p>
-                    <div
+                    <div id="open-sosmed"
                         class="mt-4 text-sm text-primary flex items-center gap-3 border-2 w-56 justify-center py-1 border-primary rounded-full shadow-lg cursor-pointer">
                         <i class="bi bi-plus-circle-fill"></i>
-                        <p id="open-sosmed" class="font-medium">Add Social Media Links</p>
+                        <p class="font-medium">Add Social Media Links</p>
                     </div>
+                    @foreach ($medsos as $social)
+                        <div class="bg-[#E7E7E7] rounded-sm w-4/6 flex items-center justify-between py-1 px-2 mt-2">
+                            <p class="text-sm text-[#747474]">
+                                {{ $social['link'] }}{{ $social['user'] }}</p>
+                            <i class="bi bi-x-lg cursor-pointer" onclick="confirmModal('{{ $social['id'] }}')"></i>
+                        </div>
+                    @endforeach
                 </div>
                 <div class="mt-8">
                     <p class="text-xs font-bold text-[#747474]">Active Goal</p>
@@ -70,7 +81,7 @@
             <div>
                 <div class="mb-6 text-sm w-4/6">
                     <label for="name" class="mb-2 inline-block text-xs font-bold text-[#747474] clear-both">Name</label>
-                    <input type="text" id="name" name="name" value="Leo Messi"
+                    <input type="text" id="name" name="name" value="{{ $page->name ?? $page->user->name }}"
                         class="w-full p-2 text-gray-900 border-2 border-[#D9D9D9] rounded-lg focus:ring-primary focus:border-primary"
                         autocomplete="off">
                 </div>
@@ -82,7 +93,7 @@
                             class="inline-flex items-center px-3 text-sm text-[#6D6D6D] bg-[#D9D9D9] border border-r-0 border-gray-300 rounded-l-md">
                             @
                         </span>
-                        <input type="text" id="name" name="name" value="leomessi"
+                        <input type="text" id="name" name="name" value="{{ $page->user->username }}"
                             class="w-full p-2 text-gray-900 border-2 border-[#D9D9D9] rounded-r-lg focus:ring-primary focus:border-primary"
                             autocomplete="off">
                     </div>
@@ -92,10 +103,10 @@
                         class="mb-2 inline-block text-xs font-bold text-[#747474] clear-both">Category</label>
                     <select id="countries"
                         class="border-2 border-[#D9D9D9] text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-priring-primary block w-full p-2.5">
-                        <option disabled>Choose a category</option>
-                        <option value="cosplayer" selected>Cosplayer</option>
-                        <option value="art">Art</option>
-                        <option value="gaming">Gaming</option>
+                        <option disabled selected>Choose a category</option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                        @endforeach
                     </select>
                 </div>
                 <div class="mb-6 text-sm w-4/6">
@@ -116,33 +127,45 @@
                 </div>
                 <button class="w-44 bg-secondary text-white py-4 rounded-full shadow-lg mt-6 font-bold text-sm">
                     <i class="fa-solid fa-floppy-disk mr-3"></i>
-                    Create Post
+                    Save Changes
                 </button>
             </div>
         </div>
 
-        <div id="modal-sosmed" class="fixed hidden inset-0 bg-gray-800 bg-opacity-70 z-50 transition-all duration-300">
+        <div id="modal-sosmed" class="fixed hidden inset-0 bg-gray-800 bg-opacity-70 z-30 transition-all duration-300">
             <div
                 class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl transition-all duration-300">
                 <div class="relative max-h-full transition-all duration-300">
                     <div class="bg-white p-4 rounded-md">
                         <div class="w-[600px] flex justify-between items-center font-semibold">
-                            <p class="text-lg">Social and Links</p>
+                            <p class="text-Dlg">Social and Links</p>
                             <i id="modal-sosmed-close" class="bi bi-x-lg cursor-pointer"></i>
                         </div>
                         <hr class="w-full h-px my-4 bg-gray-300 border-0">
+                        <div id="social-alert"
+                            class="hidden mt-4 font-regular relative w-full rounded-lg bg-pink-500 p-4 text-base leading-5 text-white opacity-100"
+                            data-dismissible="alert">
+                            <div class="mr-12" id="msg">Alert dismissible</div>
+                            <div class="absolute top-2.5 right-3 w-max rounded-lg transition-all hover:bg-white hover:bg-opacity-20"
+                                data-dismissible-target="alert">
+                                <button role="button" class="w-max rounded-lg p-1" data-alert-dimissible="true">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                                        viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12">
+                                        </path>
+                                    </svg>
+                                </button>
+                            </div>
+                        </div>
                         <div class="p-6">
                             <div class="flex items-center">
                                 <p class="text-base font-medium w-2/6">Social Platform</p>
                                 <select id="social-list"
                                     class="w-4/6 border text-base border-gray-300 rounded-md px-3 py-2 placeholder-primaryLight focus:border-primary focus:border-1 outline-none">
-                                    <option value="fb">Facebook</option>
-                                    <option value="tw">Twitter</option>
-                                    <option value="tt">Tiktok</option>
-                                    <option value="ig">Instagram</option>
-                                    <option value="yt">Youtube</option>
-                                    <option value="dc">Dicord</option>
-                                    <option value="web">Website</option>
+                                    <option disabled selected>Choose a social platform</option>
+                                    @foreach ($socialLinks as $social)
+                                        <option value="{{ $social->id }}">{{ $social->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
                             <div class="flex items-center mt-5">
@@ -151,13 +174,13 @@
                                     <div class="relative flex flex-wrap items-stretch">
                                         <span
                                             class="flex items-center whitespace-nowrap bg-primaryLight border border-primaryLight rounded-l-md border-r-0 px-3 py-[0.25rem] text-center text-base font-normal leading-[1.6] text-black"
-                                            id="social-link">https://facebook.com/</span>
-                                        <input type="text" id="social-user" placeholder="Username"
+                                            id="social-link">?</span>
+                                        <input type="text" id="social-user"
                                             class="border text-base relative m-0 block w-[1px] min-w-0 flex-auto border-gray-300 rounded-r-md px-4 py-2 focus:border-primary focus:border-1 outline-none ">
                                     </div>
                                 </div>
                             </div>
-                            <button
+                            <button id="add-social-link"
                                 class="w-44 bg-secondary text-white py-2 rounded-full shadow-lg mt-6 font-bold text-sm">
                                 <i class="fa-solid fa-floppy-disk mr-3"></i>
                                 Simpan
@@ -201,34 +224,48 @@
         });
 
         $('#social-list').on('change', function() {
-            if ($(this).val() == 'fb') {
-                $('#social-link').text('https://facebook.com/');
-                $('#social-user').attr('placeholder', 'Username');
-            }
-            if ($(this).val() == 'tw') {
-                $('#social-link').text('https://twitter.com/');
-                $('#social-user').attr('placeholder', 'Username');
-            }
-            if ($(this).val() == 'tt') {
-                $('#social-link').text('https://tiktok.com/');
-                $('#social-user').attr('placeholder', 'Username');
-            }
-            if ($(this).val() == 'ig') {
-                $('#social-link').text('https://instagram.com/');
-                $('#social-user').attr('placeholder', 'Username');
-            }
-            if ($(this).val() == 'yt') {
-                $('#social-link').text('https://youtube.com/');
-                $('#social-user').attr('placeholder', 'Channel');
-            }
-            if ($(this).val() == 'dc') {
-                $('#social-link').text('https://discord.com/');
-                $('#social-user').attr('placeholder', 'Username');
-            }
-            if ($(this).val() == 'web') {
-                $('#social-link').text('https://');
-                $('#social-user').attr('placeholder', 'Website Url');
-            }
+            @foreach ($socialLinks as $social)
+                if ($(this).val() == {{ $social->id }}) {
+                    $('#social-link').text('{{ $social->link }}');
+                }
+            @endforeach
         });
+
+        $('#add-social-link').on('click', function() {
+            $('#loading').removeClass('hidden');
+            $('#social-alert').addClass('hidden');
+            fetch("{{ route('api.social-links') }}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    },
+                    body: JSON.stringify({
+                        social_id: $('#social-list').val(),
+                        user: $('#social-user').val()
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    $('#loading').addClass('hidden');
+                    if (data.status == 'error') {
+                        $('#social-alert').removeClass('hidden');
+                        $('#msg').text(data.message);
+                    } else {
+                        location.reload();
+                    }
+                });
+        });
+
+        const confirmModal = function(id) {
+            var r = confirm("Apa kamu yakin akan menghapus social media ini?");
+            if (r == true) {
+                var url = '{{ route('api.social-links.delete', ':slug') }}';
+                url = url.replace(':slug', id);
+                window.location.href = url;
+            }
+
+            return false;
+        };
     </script>
 @endsection

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -51,12 +52,19 @@ class AuthController extends Controller
             return redirect()->route('page.register')->withErrors($validator)->withInput();
         }
 
-        $user = User::create([
-            'name' => $request->name,
-            'username' => $request->username,
-            'email' => $request->email,
-            'password' => bcrypt($request->password),
-        ]);
+        DB::transaction(function () use ($request, &$user) {
+            $user = User::create([
+                'name' => $request->name,
+                'username' => $request->username,
+                'email' => $request->email,
+                'password' => bcrypt($request->password),
+            ]);
+
+            $user->page()->create([
+                'category_id' => null,
+            ]);
+        });
+
 
         Auth::login($user);
         return redirect()->route('page.dashboard');

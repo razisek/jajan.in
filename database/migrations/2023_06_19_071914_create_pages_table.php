@@ -14,10 +14,10 @@ return new class extends Migration
         Schema::create('pages', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->foreignId('category_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->longText('about');
-            $table->text('message');
-            $table->enum('status', ['published', 'private'])->default('private');
+            $table->foreignId('category_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->string('name')->nullable();
+            $table->longText('about')->nullable();
+            $table->text('message')->nullable();
             $table->timestamps();
         });
     }

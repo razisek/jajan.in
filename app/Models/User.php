@@ -50,4 +50,9 @@ class User extends Authenticatable implements HasMedia
     {
         return $this->hasMany(Post::class);
     }
+
+    public function page()
+    {
+        return $this->hasOne(Page::class);
+    }
 }
