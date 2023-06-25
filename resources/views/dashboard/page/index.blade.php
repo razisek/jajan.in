@@ -4,17 +4,17 @@
 
 @section('content')
     <div>
+        <p class="font-semibold text-3xl mb-3">Edit Page Information</p>
         <div class="border-b border-gray-200">
             <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
                 <li class="mr-2">
-                    <a href="#"
-                        class="inline-flex p-4 border-b-2 border-transparent rounded-t-lg hover:text-primary group text-primary border-primary">
+                    <a href="{{ route('page.page.index') }}" class="inline-flex p-4 border-b-2 rounded-t-lg group text-primary border-primary">
                         <i class="bi bi-grid-1x2-fill mr-2"></i>Profile Page
                     </a>
                 </li>
                 <li class="mr-2">
-                    <a href="#" class="inline-flex p-4 border-b-2 rounded-t-lg group" aria-current="page">
-                        <i class="bi bi-coin mr-2"></i>Unit Jajani
+                    <a href="{{ route('page.unit.index') }}" class="inline-flex p-4 border-b-2 rounded-t-lg group hover:text-primary">
+                        <i class="bi bi-coin mr-2"></i>Unit Jajanin
                     </a>
                 </li>
             </ul>

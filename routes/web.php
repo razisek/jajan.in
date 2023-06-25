@@ -39,4 +39,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // page
     Route::get('page', [PageController::class, 'index'])->name('page.page.index');
+    Route::get('page/unit', [PageController::class, 'unit'])->name('page.unit.index');
 });

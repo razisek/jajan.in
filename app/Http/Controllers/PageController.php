@@ -11,6 +11,11 @@ class PageController extends Controller
         return view('dashboard.page.index');
     }
 
+    public function unit()
+    {
+        return view('dashboard.page.unit');
+    }
+
     public function create()
     {
         //
