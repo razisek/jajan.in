@@ -27,10 +27,16 @@
                 <li>
                     <div class="menu_separator"></div>
                 </li>
-                <li><a class="nav_pad flex" href="{{ route('page.register') }}">Register</a></li>
-                <li><a href="{{ route('page.login') }}"><button
-                            class="lgn_btn inline-flex items-center border-0 mx-4 py-2 px-8 focus:outline-none rounded-full text-base mt-4 md:mt-0">Login
-                        </button></a></li>
+                @if (Auth::check())
+                    <li><a href="{{ route('page.dashboard') }}"><button
+                                class="lgn_btn inline-flex items-center border-0 mx-4 py-2 px-8 focus:outline-none rounded-full text-base mt-4 md:mt-0">Dashboard
+                            </button></a></li>
+                @else
+                    <li><a class="nav_pad flex" href="{{ route('page.register') }}">Register</a></li>
+                    <li><a href="{{ route('page.login') }}"><button
+                                class="lgn_btn inline-flex items-center border-0 mx-4 py-2 px-8 focus:outline-none rounded-full text-base mt-4 md:mt-0">Login
+                            </button></a></li>
+                @endif
             </ul>
         </div>
     </div>
@@ -303,7 +309,8 @@
             <div
                 class="container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
                 <div class="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
-                    <img src="https://res.cloudinary.com/dgmwbkto1/image/upload/v1687538877/jajanin_logo2_clbyam.png" alt="">
+                    <img src="https://res.cloudinary.com/dgmwbkto1/image/upload/v1687538877/jajanin_logo2_clbyam.png"
+                        alt="">
                     <p class="mt-2 text-sm text-white">Our vision is to provide convenience and help increase your
                         sales business.</p>
                 </div>
