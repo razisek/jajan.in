@@ -5,7 +5,8 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="https://res.cloudinary.com/dgmwbkto1/image/upload/v1687706362/Frame_15_hbnswm.png">
+    <link rel="icon" type="image/x-icon"
+        href="https://res.cloudinary.com/dgmwbkto1/image/upload/v1687706362/Frame_15_hbnswm.png">
     <title>@yield('title', 'Dashboard')</title>
     @vite('resources/css/app.css')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.2/font/bootstrap-icons.css"
@@ -40,7 +41,7 @@
                         </div>
                         <div class="pl-8 flex items-center">
                             <a href="#"><i class="bi bi-bell-fill text-[#6D6D6D] pr-8 text-xl"></i></a>
-                            <img src="https://res.cloudinary.com/dgmwbkto1/image/upload/v1687358399/120047969_418348109130251_6041324800208866272_n_ullowg.jpg"
+                            <img src="{{ auth()->user()->getFirstMediaUrl('avatar') != ''? auth()->user()->getFirstMediaUrl('avatar'): 'https://ui-avatars.com/api/?background=random&name=' . auth()->user()->name }}"
                                 alt="avatar" class="w-10 h-10 rounded-full">
                             <div class="pl-3">
                                 <p class="text-primary font-medium text-md">{{ Auth::user()->name }}</p>

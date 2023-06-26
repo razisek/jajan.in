@@ -116,7 +116,7 @@
             <div>
                 <div class="mb-6 text-sm w-4/6">
                     <label for="name" class="mb-2 inline-block text-xs font-bold text-[#747474] clear-both">Name</label>
-                    <input type="text" id="name" name="name" value="{{ $page->name ?? $page->user->name }}"
+                    <input type="text" id="name" name="name" value="{{ $page->user->name }}"
                         class="w-full p-2 text-gray-900 border-2 border-[#D9D9D9] rounded-lg focus:ring-primary focus:border-primary"
                         autocomplete="off">
                 </div>

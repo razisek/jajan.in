@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
@@ -26,9 +27,7 @@ Route::get('/register', [AuthController::class, 'indexRegister'])->name('page.re
 Route::post('/register', [AuthController::class, 'register'])->name('register');
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('dashboard', function () {
-        return view('dashboard.dashboard');
-    })->name('page.dashboard');
+    Route::get('dashboard', [DashboardController::class, 'index'])->name('page.dashboard');
 
     // post
     Route::get('post', [PostController::class, 'index'])->name('page.post.index');

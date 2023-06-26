@@ -27,7 +27,6 @@ class PageController extends Controller
         $header = $page->getFirstMediaUrl('header');
 
         if ($request->has('s')) {
-            // return view('dashboard.page.index', compact('page', 'categories', 'socialLinks', 'medsos', 'avatar', 'header'))->with('success', 'Page saved successfully');;
             return redirect()->route('page.page.index')->with('success', 'Page saved successfully');
         }
 
@@ -106,12 +105,12 @@ class PageController extends Controller
         DB::transaction(function () use ($request, $user) {
             $user->page->update([
                 'category_id' => $request->category_id,
-                'name' => $request->name,
                 'about' => $request->about,
                 'message' => $request->message,
             ]);
 
             $user->update([
+                'name' => $request->name,
                 'username' => $request->username,
             ]);
 
@@ -159,25 +158,5 @@ class PageController extends Controller
         }
 
         return redirect()->route('page.page.index');
-    }
-
-    public function show(string $id)
-    {
-        //
-    }
-
-    public function edit(string $id)
-    {
-        //
-    }
-
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    public function destroy(string $id)
-    {
-        //
     }
 }

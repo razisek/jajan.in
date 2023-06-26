@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->foreignId('category_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->string('name')->nullable();
             $table->longText('about')->nullable();
             $table->text('message')->nullable();
             $table->timestamps();
