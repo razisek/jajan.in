@@ -39,6 +39,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // page
     Route::get('page', [PageController::class, 'index'])->name('page.page.index');
+    Route::post('page', [PageController::class, 'store'])->name('page.page.store');
+    Route::get('page/avatar/delete', [PageController::class, 'deleteAvatar'])->name('page.avatar.delete');
+    Route::get('page/header/delete', [PageController::class, 'deleteHeader'])->name('page.header.delete');
     Route::get('page/unit', [PageController::class, 'unit'])->name('page.unit.index');
 
     // social links

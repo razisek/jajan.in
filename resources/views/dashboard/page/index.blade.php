@@ -25,12 +25,33 @@
                 </li>
             </ul>
         </div>
+        <div id="page-alert"
+            class="hidden my-4 font-regular relative w-full rounded-lg bg-pink-500 p-4 text-base leading-5 text-white opacity-100"
+            data-dismissible="alert">
+            <div class="mr-12" id="msg">Alert dismissible</div>
+            <div class="absolute top-2.5 right-3 w-max rounded-lg transition-all hover:bg-white hover:bg-opacity-20"
+                data-dismissible-target="alert">
+                <button role="button" class="w-max rounded-lg p-1" data-alert-dimissible="true">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
+                        stroke="currentColor" stroke-width="2">
+                        <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12">
+                        </path>
+                    </svg>
+                </button>
+            </div>
+        </div>
+        @if (\Session::has('success'))
+            <div
+                class="font-regular relative my-4 block w-full rounded-lg bg-green-500 p-4 text-base leading-5 text-white opacity-100">
+                {!! \Session::get('success') !!}
+            </div>
+        @endif
         <div class="p-6 bg-white border border-gray-200 rounded-lg shadow grid grid-cols-2">
             <div>
                 <div>
                     <p class="text-xs font-bold text-[#747474]">Profile Picture</p>
                     <div class="mt-3 flex gap-4">
-                        <img src="https://media.istockphoto.com/id/1327592449/id/vektor/ikon-tempat-penampung-foto-avatar-default-gambar-profil-abu-abu-pebisnis.jpg?s=170667a&w=0&k=20&c=zPNFIk-DGCMcFNoYVt-WsaqkNEpJW8vIuOYtcU-MvaA="
+                        <img src="{{ $avatar == '' ? 'https://media.istockphoto.com/id/1327592449/id/vektor/ikon-tempat-penampung-foto-avatar-default-gambar-profil-abu-abu-pebisnis.jpg?s=170667a&w=0&k=20&c=zPNFIk-DGCMcFNoYVt-WsaqkNEpJW8vIuOYtcU-MvaA=' : $avatar }}"
                             alt="avatar" id="avatarPreview" class="w-24 h-24 rounded-full object-cover">
                         <div>
                             <label
@@ -39,20 +60,34 @@
                                 <p class="text-[12px]">Upload New Picture</p>
                                 <input type="file" class="hidden" id="avatarInput" accept="image/*" name="avatar" />
                             </label>
+                            @if ($avatar != '')
+                                <p onclick="confirmModalDeleteAvatar()"
+                                    class="border-2 text-center py-1 mt-3 rounded-full cursor-pointer hover:bg-[#E7E7E7] hover:border-[#A7A7A7]">
+                                    <i class="bi bi-x-lg mr-3"></i> Remove
+                                </p>
+                            @endif
                         </div>
                     </div>
                 </div>
                 <div class="mt-8">
                     <p class="text-xs font-bold text-[#747474]">Profile Header</p>
-                    <img src="https://placehold.co/900x225/EEE/31343C" alt="header" id="headerPreview"
-                        class="w-80 h-48 object-cover rounded-t-2xl mt-2">
+                    <img src="{{ $header == '' ? 'https://placehold.co/900x225/EEE/31343C' : $header }}" alt="header"
+                        id="headerPreview" class="w-80 h-48 object-cover rounded-t-2xl mt-2">
                     <p class="text-[10px] text-[#747474] font-light pt-2 pb-4">Header resolution : 900 x 225</p>
-                    <label
-                        class="flex w-56 gap-3 justify-center items-center px-6 py-1 font-bold text-primary border-primary transition-all duration-300 rounded-full shadow-lg tracking-wide border-2 cursor-pointer">
-                        <i class="bi bi-upload"></i>
-                        <p class="text-[12px]">Upload New Picture</p>
-                        <input type="file" class="hidden" id="headerInput" accept="image/*" name="header" />
-                    </label>
+                    <div class="flex items-center gap-3 w-3/5">
+                        <label
+                            class="flex w-2/3 gap-3 justify-center items-center px-6  font-bold text-primary border-primary transition-all duration-300 rounded-full shadow-lg tracking-wide border-2 cursor-pointer">
+                            <i class="bi bi-upload"></i>
+                            <p class="text-[12px]">Upload New Picture</p>
+                            <input type="file" class="hidden" id="headerInput" accept="image/*" name="header" />
+                        </label>
+                        @if ($header != '')
+                            <p onclick="confirmModalDeleteHeader()"
+                                class="border-2 w-1/3 text-center py-1 mt-3 rounded-full cursor-pointer hover:bg-[#E7E7E7] hover:border-[#A7A7A7]">
+                                <i class="bi bi-x-lg mr-3"></i> Remove
+                            </p>
+                        @endif
+                    </div>
                 </div>
                 <div class="mt-8">
                     <p class="text-xs font-bold text-[#747474]">Social Media Links</p>
@@ -93,28 +128,30 @@
                             class="inline-flex items-center px-3 text-sm text-[#6D6D6D] bg-[#D9D9D9] border border-r-0 border-gray-300 rounded-l-md">
                             @
                         </span>
-                        <input type="text" id="name" name="name" value="{{ $page->user->username }}"
+                        <input type="text" id="username" name="username" value="{{ $page->user->username }}"
                             class="w-full p-2 text-gray-900 border-2 border-[#D9D9D9] rounded-r-lg focus:ring-primary focus:border-primary"
                             autocomplete="off">
                     </div>
                 </div>
                 <div class="mb-6 text-sm w-4/6">
-                    <label for="name"
+                    <label for="category"
                         class="mb-2 inline-block text-xs font-bold text-[#747474] clear-both">Category</label>
-                    <select id="countries"
+                    <select id="category"
                         class="border-2 border-[#D9D9D9] text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-priring-primary block w-full p-2.5">
-                        <option disabled selected>Choose a category</option>
+                        <option disabled selected value="0">Choose a category</option>
                         @foreach ($categories as $category)
-                            <option value="{{ $category->id }}">{{ $category->name }}</option>
+                            <option value="{{ $category->id }}"
+                                {{ $page->category_id == $category->id ? 'selected' : '' }}>
+                                {{ $category->name }}</option>
                         @endforeach
                     </select>
                 </div>
                 <div class="mb-6 text-sm w-4/6">
                     <label for="name"
                         class="mb-2 inline-block text-xs font-bold text-[#747474] clear-both">About</label>
-                    <textarea id="message" rows="4"
+                    <textarea id="about" rows="4"
                         class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border-2 border-[#D9D9D9] focus:ring-primary focus:border-primring-primary"
-                        placeholder="About"></textarea>
+                        placeholder="About">{{ $page->about }}</textarea>
                 </div>
                 <div class="mb-6 text-sm w-4/6">
                     <div class="flex items-center gap-2 mb-2 text-[#747474]">
@@ -123,9 +160,10 @@
                     </div>
                     <textarea id="message" rows="3"
                         class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border-2 border-[#D9D9D9] focus:ring-primary focus:border-primring-primary"
-                        placeholder="Pesan untuk supporter yang mau jajanin"></textarea>
+                        placeholder="Pesan untuk supporter yang mau jajanin">{{ $page->message }}</textarea>
                 </div>
-                <button class="w-44 bg-secondary text-white py-4 rounded-full shadow-lg mt-6 font-bold text-sm">
+                <button id="save-page"
+                    class="w-44 bg-secondary text-white py-4 rounded-full shadow-lg mt-6 font-bold text-sm">
                     <i class="fa-solid fa-floppy-disk mr-3"></i>
                     Save Changes
                 </button>
@@ -263,6 +301,62 @@
                 var url = '{{ route('api.social-links.delete', ':slug') }}';
                 url = url.replace(':slug', id);
                 window.location.href = url;
+            }
+
+            return false;
+        };
+
+        $('#save-page').on('click', function() {
+            const formData = new FormData();
+            if ($('#avatarInput')[0].files[0] != undefined) {
+                formData.append('avatar', $('#avatarInput')[0].files[0]);
+            }
+            if ($('#headerInput')[0].files[0] != undefined) {
+                formData.append('header', $('#headerInput')[0].files[0]);
+            }
+            if ($('#message').val() != '') {
+                formData.append('message', $('#message').val());
+            }
+            formData.append('name', $('#name').val());
+            formData.append('username', $('#username').val());
+            formData.append('category_id', $('#category').val());
+            formData.append('about', $('#about').val());
+
+            $('#loading').removeClass('hidden');
+            $('#social-alert').addClass('hidden');
+            fetch("{{ route('page.page.store') }}", {
+                    method: 'POST',
+                    headers: {
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    },
+                    body: formData
+                })
+                .then(response => response.json())
+                .then(data => {
+                    $('#loading').addClass('hidden');
+                    if (data.status == 'error') {
+                        $('#page-alert').removeClass('hidden');
+                        $('#msg').text(data.message);
+                        window.scrollTo(0, 0);
+                    } else {
+                        window.location.href = "{{ route('page.page.index') }}" + '?s';
+                    }
+                });
+        });
+
+        const confirmModalDeleteAvatar = function() {
+            var r = confirm("Apa kamu yakin akan menghapus avatar?");
+            if (r == true) {
+                window.location.href = "{{ route('page.avatar.delete') }}";
+            }
+
+            return false;
+        };
+
+        const confirmModalDeleteHeader = function() {
+            var r = confirm("Apa kamu yakin akan menghapus header?");
+            if (r == true) {
+                window.location.href = "{{ route('page.header.delete') }}";
             }
 
             return false;
