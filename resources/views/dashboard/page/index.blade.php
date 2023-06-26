@@ -185,7 +185,7 @@
                         <div id="social-alert"
                             class="hidden mt-4 font-regular relative w-full rounded-lg bg-pink-500 p-4 text-base leading-5 text-white opacity-100"
                             data-dismissible="alert">
-                            <div class="mr-12" id="msg">Alert dismissible</div>
+                            <div class="mr-12" id="msg-popup">Alert dismissible</div>
                             <div class="absolute top-2.5 right-3 w-max rounded-lg transition-all hover:bg-white hover:bg-opacity-20"
                                 data-dismissible-target="alert">
                                 <button role="button" class="w-max rounded-lg p-1" data-alert-dimissible="true">
@@ -290,7 +290,7 @@
                     $('#loading').addClass('hidden');
                     if (data.status == 'error') {
                         $('#social-alert').removeClass('hidden');
-                        $('#msg').text(data.message);
+                        $('#msg-popup').text(data.message);
                     } else {
                         location.reload();
                     }
