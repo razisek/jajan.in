@@ -32,6 +32,10 @@ class CustomPath implements PathGenerator
             return "pages/{$modelId}/$collection/{$mediaId}/";
         }
 
+        if ($media->model_type == "App\Models\Unit") {
+            return "units/{$modelId}/$collection/{$mediaId}/";
+        }
+
         return $mediaId;
     }
 

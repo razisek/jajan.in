@@ -22,4 +22,9 @@ class Page extends Model implements HasMedia
     {
         return $this->hasMany(Medsos::class);
     }
+
+    public function units()
+    {
+        return $this->hasMany(Unit::class);
+    }
 }

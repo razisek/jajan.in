@@ -12,4 +12,9 @@ class Unit extends Model implements HasMedia
     use HasFactory, InteractsWithMedia;
 
     protected $guarded = ['id'];
+
+    public function page()
+    {
+        return $this->belongsTo(Page::class);
+    }
 }

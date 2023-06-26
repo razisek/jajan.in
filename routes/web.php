@@ -41,7 +41,12 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('page', [PageController::class, 'store'])->name('page.page.store');
     Route::get('page/avatar/delete', [PageController::class, 'deleteAvatar'])->name('page.avatar.delete');
     Route::get('page/header/delete', [PageController::class, 'deleteHeader'])->name('page.header.delete');
+
+    // unit
     Route::get('page/unit', [PageController::class, 'unit'])->name('page.unit.index');
+    Route::post('page/unit', [PageController::class, 'storeUnit'])->name('page.unit.store');
+    Route::post('page/unit/update', [PageController::class, 'updateUnit'])->name('page.unit.update');
+    Route::get('page/unit/{unit}/delete', [PageController::class, 'deleteUnit'])->name('page.unit.delete');
 
     // social links
     Route::post('social-links', [PageController::class, 'socialLinks'])->name('api.social-links');

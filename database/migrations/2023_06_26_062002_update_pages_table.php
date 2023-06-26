@@ -11,12 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('units', function (Blueprint $table) {
-            $table->id();
-            $table->foreignId('page_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
-            $table->string('name');
-            $table->integer('price');
-            $table->timestamps();
+        Schema::table('pages', function (Blueprint $table) {
+            $table->foreignId('unit_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
         });
     }
 
@@ -25,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('units');
+        Schema::table('pages', function (Blueprint $table) {
+            $table->dropForeign(['unit_id']);
+        });
     }
 };

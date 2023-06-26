@@ -66,7 +66,7 @@
                                 <a href="#" class="block py-2 px-4">My Balance</a>
                             </li>
                             <li
-                                class="flex items-center pl-4 rounded-full hover:bg-primaryLight hover:text-primary {{ Route::is('page.page.index') ? 'bg-primaryLight text-primary' : '' }}">
+                                class="flex items-center pl-4 rounded-full hover:bg-primaryLight hover:text-primary {{ Route::is('page.page.index') || Route::is('page.unit.index') ? 'bg-primaryLight text-primary' : '' }}">
                                 <i class="bi bi-pencil-square"></i>
                                 <a href="{{ route('page.page.index') }}" class="block py-2 px-4">Edit Page</a>
                             </li>
