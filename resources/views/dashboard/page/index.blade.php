@@ -92,14 +92,16 @@
                 <div class="mt-8">
                     <p class="text-xs font-bold text-[#747474]">Social Media Links</p>
                     <div id="open-sosmed"
-                        class="mt-4 text-sm text-primary flex items-center gap-3 border-2 w-56 justify-center py-1 border-primary rounded-full shadow-lg cursor-pointer">
+                        class="mt-4 mb-4 text-sm text-primary flex items-center gap-3 border-2 w-56 justify-center py-1 border-primary rounded-full shadow-lg cursor-pointer">
                         <i class="bi bi-plus-circle-fill"></i>
                         <p class="font-medium">Add Social Media Links</p>
                     </div>
                     @foreach ($medsos as $social)
-                        <div class="bg-[#E7E7E7] rounded-sm w-4/6 flex items-center justify-between py-1 px-2 mt-2">
-                            <p class="text-sm text-[#747474]">
-                                {{ $social['link'] }}{{ $social['user'] }}</p>
+                        <div class="bg-[#E7E7E7] rounded-md w-4/6 flex items-center justify-between py-1 px-2 mt-2">
+                            <div class="flex items-center gap-2">
+                                <img src="{{ $social['icon'] }}" alt="icon-social" class="w-8 h-8 object-contain">
+                                <p class="text-sm text-[#747474]">{{ $social['link'] }}{{ $social['user'] }}</p>
+                            </div>
                             <i class="bi bi-x-lg cursor-pointer" onclick="confirmModal('{{ $social['id'] }}')"></i>
                         </div>
                     @endforeach

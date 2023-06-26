@@ -21,8 +21,10 @@ class PageController extends Controller
                 'id' => $item->id,
                 'link' => $item->socialLink->link,
                 'user' => $item->user,
+                'icon' => $item->socialLink->getFirstMediaUrl($item->socialLink->code),
             ];
         });
+
         $avatar = $page->user->getFirstMediaUrl('avatar');
         $header = $page->getFirstMediaUrl('header');
 
