@@ -20,7 +20,7 @@
     <div class="flex">
         <div class="w-full ml-auto z-50">
             <nav class="bg-white shadow-md">
-                <div class="max-w-screen-2xl flex items-center justify-between mx-9 p-4">
+                <div class="flex items-center justify-between mx-9 p-4">
                     <a href="#" class="py-1">
                         <img src="https://res.cloudinary.com/dgmwbkto1/image/upload/v1687234627/logo_tddyns.png"
                             class="h-10" alt="jajanin Logo" />
