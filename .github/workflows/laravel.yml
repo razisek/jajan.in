@@ -56,9 +56,15 @@ jobs:
     - name: Run Migration
       run: php artisan migrate:fresh --seed
       env:
-          DB_PORT: ${{ job.services.mysql.ports['3306'] }}
+        MYSQL_DATABASE: laravel
+        DB_USERNAME: root
+        DB_PASSWORD: password
+        DB_PORT: ${{ job.services.mysql.ports['3306'] }}
       
     - name: Execution Unit Test
       run: php artisan test
       env:
-          DB_PORT: ${{ job.services.mysql.ports['3306'] }}
+        MYSQL_DATABASE: laravel
+        DB_USERNAME: root
+        DB_PASSWORD: password
+        DB_PORT: ${{ job.services.mysql.ports['3306'] }}
