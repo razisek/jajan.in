@@ -1,0 +1,148 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+}
+
+.header {
+    background-color: white;
+}
+
+.menu_separator {
+    border-left: 3px solid #e0d7f2;
+    height: 40px;
+    margin-left: -3px;
+    top: 0;
+}
+
+.menu_navigation li {
+    padding: 10px;
+    font-size: 18px;
+    color: #7149c6;
+
+}
+
+.nav_pad {
+    padding-top: 5px;
+}
+
+.search_icon {
+    width: auto;
+    height: 25px;
+}
+
+.lgn_btn {
+    background-color: #ff7000;
+    color: white;
+    font-size: 18px;
+}
+
+.lgn_btn:hover {
+    background-color: #ff9200;
+    color: white;
+    font-size: 18px;
+}
+
+
+/* content */
+.content {
+    background-color: #e4dcf4;
+}
+
+.preference {
+    /* background-color: blue; */
+    padding: 5px 20px;
+    font-size: 24px;
+    height: 50px;
+}
+
+.img_preference {
+    width: auto;
+    height: 35px;
+    padding-right: 10px;
+}
+
+.preference:hover {
+    padding: 5px;
+    margin: 0 20px;
+    font-size: 24px;
+    font-weight: 800;
+    max-height: 50px;
+    border-bottom: 5px solid black;
+}
+
+/* Filter Creator */
+.fcreator {
+    /* background-color: red; */
+    padding: 5px 20px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.fcreator:hover {
+    background-color: #7149c6;
+    color: white;
+    font-weight: 700;
+    border-radius: 10px;
+}
+
+/* card creator */
+.card_creator {
+    background-color: white;
+    border-radius: 30px;
+}
+.img_profile {
+    margin: -53px auto;
+}
+
+.card_context {
+    margin-top: 60px;
+    margin-bottom: 20px;
+}
+
+.Card_title {
+    font-size: 20px;
+    font-weight: 800;
+}
+
+.Card_id {
+    font-size: 16px;
+    color: #737373;
+}
+
+.fi{
+    height: 22px;
+    width: auto;
+}
+.fc {
+    font-size: 16px;
+    font-weight: bolder;
+}
+
+/* footer */
+.footer {
+    background-color: #7149c6;
+    color: white;
+    padding: 20px;
+}
+
+
+
+.line_separator {
+
+    border: 2px solid #8866cf;
+}
+
+.footer {
+    font-size: 18px;
+}
