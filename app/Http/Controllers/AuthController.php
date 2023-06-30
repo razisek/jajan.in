@@ -62,6 +62,7 @@ class AuthController extends Controller
 
             $user->page()->create([
                 'category_id' => null,
+                'unit_id' => 1,
             ]);
         });
 
