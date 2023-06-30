@@ -1,0 +1,356 @@
+/* pop donate */
+.pop_up {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    transition: opacity 500ms;
+    visibility: hidden;
+    opacity: 0;
+}
+
+.pop_up:target {
+    visibility: visible;
+    opacity: 1;
+}
+
+.pop_donate {
+    width: 420px;
+    height: 700px;
+    background-color: white;
+    margin: auto;
+    border-radius: 30px;
+    transition: all 5s ease-in-out;
+}
+
+.pop_header {
+    background-color: #7149c6;
+    height: 70px;
+    border-radius: 30px 30px 0px 0px;
+    display: flex;
+    padding: 15px 20px;
+}
+
+.close_btn_img {
+    height: 30px;
+    width: auto;
+}
+
+.pop_title {
+    font-size: 30px;
+    font-weight: 700;
+    color: white;
+    margin-left: 100px;
+}
+
+.pop_body {
+    height: 580px;
+    width: 420px;
+}
+
+.pop_footer {
+    height: 50px;
+    background-color: #F6F6F6;
+    border-radius: 0px 0px 30px 30px;
+    border-top: 2px solid black;
+    padding: 8px 18px;
+}
+
+.pop_footer2 {
+    display: flex;
+    justify-content: space-between;
+}
+
+.next_btn {
+    display: flex;
+    background-color: #7149c6;
+    font-size: 14px;
+    font-weight: 700;
+    color: white;
+    padding: 4px 18px;
+    border-radius: 30px;
+    border: 2px solid #7149c6;
+}
+
+.next_btn:hover {
+    background-color: #b9a4e2;
+}
+
+.back_btn {
+    display: flex;
+    background-color: #ffffff;
+    font-size: 14px;
+    font-weight: 700;
+    color: black;
+    padding: 4px 18px;
+    border-radius: 30px;
+    border: 2px solid #ffffff;
+}
+
+.back_btn:hover {
+    background-color: #ff583f;
+    border: 2px solid #ff583f;
+}
+
+.back_img {
+    width: auto;
+    height: 21px;
+    padding-right: 10px;
+}
+
+.next_img {
+    width: auto;
+    height: 20px;
+    padding-left: 10px;
+}
+
+/* pop view */
+.pop_view {
+    width: 525px;
+    height: 720px;
+    background-color: white;
+    margin: auto;
+    margin-top: 20px;
+    border-radius: 30px;
+    transition: all 5s ease-in-out;
+}
+
+.view_header {
+    background-color: #ffffff;
+    /* background-color: #ff583f; */
+    height: 55px;
+    border-radius: 30px 30px 0px 0px;
+    padding: 15px 20px;
+}
+
+.close_btn_img2 {
+    height: 25px;
+    width: auto;
+}
+
+.viewreward_content {
+    background-color: #f0f0f0;
+    width: 525px;
+    height: 665px;
+    border-radius: 0px 0px 30px 30px;
+    padding: 10px 20px;
+    overflow: scroll;
+}
+
+.viewreward_content::-webkit-scrollbar {
+    display: none;
+}
+
+.vrc_reward_row {}
+
+.img_reward_view {
+    width: 25px;
+    height: 25px;
+}
+
+.reward_info1 {
+    font-size: 12px;
+    font-weight: 900;
+    color: #000000;
+    padding-top: 4px;
+    margin-left: 10px;
+}
+
+.reward_info2 {
+    font-size: 10px;
+    font-weight: 600;
+    color: #6D6D6D;
+    padding-top: 4px;
+}
+
+.view_donate_btn {
+    margin-left: 20px;
+    height: 22px;
+    display: flex;
+    justify-content: center;
+    background-color: #7149c6;
+    border: 2px solid #7149c6;
+    border-radius: 13px;
+    padding: 0px 10px;
+}
+
+.view_donate_btn:hover {
+    background-color: #b9a4e2;
+}
+
+.view_donate_btn span {
+    margin-top: 1px;
+    color: #ffffff;
+    font-size: 10px;
+    font-weight: 600;
+}
+
+.kucing {
+    height: 18px;
+    width: auto;
+    margin: auto 0px;
+    margin-right: 5px;
+}
+
+.vrc_reward_row2 {
+    display: flex;
+    justify-content: start;
+    padding: 0px 12px;
+}
+
+.vrc_col {
+    display: flex;
+    justify-content: space-between;
+    width: 390px;
+}
+
+.gembok_line {
+    border-left: 2px solid black;
+    height: 155px;
+}
+
+.gembok_line2 {
+    border-left: transparent;
+    height: 155px;
+}
+
+.vrc_content {
+    margin-left: 24px;
+    padding-top: 10px;
+}
+
+.vrc_card {
+    display: flex;
+    justify-content: start;
+    width: 180px;
+    height: 60px;
+    background-color: #ffffff;
+    border-radius: 8px;    
+    box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+}
+
+.vrc_card img {
+    height: 65.5px;
+    width: auto;
+    margin-top: -2px;
+    margin-left: -3.5px;
+    margin-right: 10px;
+}
+
+.vrc_card h1 {
+    font-size: 10px;
+    font-weight: 800;
+    color: #000000;
+    margin-top: 2px;
+}
+
+.vrc_card h2 {
+    font-size: 6px;
+    font-weight: 600;
+    color: #6D6D6D;
+    margin-top: 8px;
+    margin-bottom: 2px;
+}
+
+/* pop donate1 */
+.pop_creator_profil {
+    background-color: #beace5;
+    padding: 20px 65px;
+}
+
+.pop_creator_img {
+    width: 90px;
+    height: auto;
+    margin: auto;
+}
+
+.pop_creator_img2 {
+    width: 90px;
+    height: auto;
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 5px;
+}
+
+.btn_count_donate {
+    border-radius: 30px;
+    background-color: #b9a4e2;
+    color: black;
+    font-size: 20px;
+    width: 30px;
+    height: auto;
+    padding: 0px;
+}
+
+.btn_count_donate:hover {
+    background-color: #7149c6;
+    color: white;
+}
+
+.donate_count {
+    background-color: white;
+    border: 2px solid black;
+    border-radius: 7px;
+    padding: 2px 20px;
+    margin: 0px 15px;
+}
+
+.donate_option {
+    color: #6D6D6D;
+    font-size: 15px;
+    font-weight: bold;
+    border: 2px solid #a88fdc;
+    border-radius: 18px;
+    padding: 0px 10px;
+    margin-top: 20px;
+}
+
+.donate_option:hover {
+    background-color: #7149c6;
+    color: white;
+}
+
+/* pop doonate2 */
+.donate_info {
+    margin: 0 14px;
+    border-radius: 25px;
+    padding: 10px;
+    background-color: #beace5;
+}
+
+.payment {
+    /* background-color: blue; */
+    margin: auto;
+    margin-top: 20px;
+    width: 350px;
+    height: auto;
+}
+
+.payment h1 {
+    font-size: 20px;
+    font-weight: 700;
+    color: #7149c6;
+    margin-bottom: 10px;
+}
+
+.payment_method {
+    display: flex;
+    margin-bottom: 50px;
+    border: 2px solid black;
+    border-radius: 10px;
+    padding: 10px 0;
+}
+
+.total {
+    display: flex;
+    justify-content: space-between;
+    background-color: #beace5;
+    padding: 10px 20px;
+    border-radius: 30px;
+    margin-top: 10px;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}

@@ -1,0 +1,288 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    text-decoration: none;
+}
+
+body {
+    font-family: 'Poppins', sans-serif;
+    overflow-x: hidden;
+}
+
+.header {
+    background-color: white;
+}
+
+.menu_separator {
+    border-left: 3px solid #e0d7f2;
+    height: 40px;
+    margin-left: -3px;
+    top: 0;
+}
+
+.menu_navigation li {
+    padding: 10px;
+    font-size: 18px;
+    color: #7149c6;
+
+}
+
+.nav_pad {
+    padding-top: 5px;
+}
+
+.search_icon {
+    width: auto;
+    height: 25px;
+}
+
+.lgn_btn {
+    background-color: #ff7000;
+    color: white;
+    font-size: 18px;
+}
+
+.lgn_btn:hover {
+    background-color: #ff9200;
+    color: white;
+    font-size: 18px;
+}
+
+
+/* profil desk */
+/* profil_pict */
+.profil_pict {
+    padding-top: 38px;
+    background-size: cover;
+}
+
+.profilbtnicon{
+    display: flex;
+    justify-content: center;
+    margin-top: -170px;
+}
+
+.btn_desk {
+    background-color: #7149c6;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 10px;
+    height: 50px;
+    width: 220px;
+    margin-top: 140px;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.btn_desk_img {
+    width: auto;
+    height: 35px;
+    padding-right: 10px;
+}
+
+.btn_desk_img2 {
+    width: auto;
+    height: 30px;
+    padding-right: 10px;
+}
+
+/* profil text */
+.profil_name {
+    font-size: 40px;
+    font-weight: 800;
+    color: black;
+    padding-top: 20px;
+    padding-bottom: 10px;
+}
+
+.profil_role {
+    font-size: 20px;
+    font-weight: lighter;
+    color: black;
+    padding-bottom: 20px;
+}
+
+.deskripsi {
+    max-width: 700px;
+    margin: auto;
+    font-size: 24px;
+}
+
+/* sosial media */
+.sosmed_card {
+    margin: auto;
+    margin-top: 40px;
+    max-width: 1109px;
+    border-radius: 30px;
+    background-color: #7149c6;
+}
+
+.sosmed_btn {
+    background-color: white;
+    color: #7149c6;
+    font-size: 24px;
+    font-weight: bold;
+    padding: 8px 20px;
+    border-radius: 30px;
+}
+
+.sosmed_btn_img {
+    width: auto;
+    height: 35px;
+    padding-right: 20px;
+}
+
+/* statistic */
+.statistic_card {
+    max-width: 1109px;
+    border-radius: 30px;
+    background-color: #7149c6;
+    width: 534px;
+    height: 245px;
+    padding: 30px 50px;
+    margin: 0 25px;
+}
+
+.stittle {
+    font-size: 40px;
+    font-weight: 700;
+    color: white;
+}
+
+.sdata {
+    margin-top: 20px;
+    font-size: 96px;
+    font-weight: 700;
+    color: white;
+}
+
+.img_scard {
+    width: auto;
+    height: 50px;
+    padding-right: 25px;
+}
+
+.btn_reward {
+    border: 2px solid white;
+    border-radius: 30px;
+    color: white;
+    font-size: 24px;
+    height: 50px;
+    padding: 0px 40px;
+    margin: 0px 0px;
+}
+
+.btn_reward:hover {
+    background-color: white;
+    color: #7149c6;
+    font-weight: bolder;
+}
+
+/* donate */
+.donate_card {
+    margin: 50px auto;
+    height: 325px;
+    width: 1109px;
+    border-radius: 30px;
+    background-color: #7149c6;
+    padding: 10px 60px;
+}
+
+.btn_support {
+    border: 2px solid white;
+    border-radius: 30px;
+    color: white;
+    font-size: 32px;
+    height: 50px;
+    padding: 0px 100px;
+    margin: auto;
+}
+
+.btn_support:hover {
+    background-color: white;
+    color: #7149c6;
+    font-weight: bolder;
+}
+
+/* Profil comenter */
+.com_card {
+    background-color: #e4dcf4;
+    width: 1109px;
+    margin: auto;
+    margin-bottom: 100px;
+    border-radius: 30px;
+    padding: 50px;
+}
+
+.com_row {
+    margin-bottom: 30px;
+}
+
+.img_com {
+    width: 70px;
+    height: 70px;
+    margin-right: 20px;
+}
+.right_com_col {
+    margin-top: 10px;
+}
+.lates_com {
+    font-size: 16px;
+    font-weight: 100;
+    color: #6d6d6d;
+}
+.com_res{
+    font-size: 20px;
+    display: flex;
+}
+.com_name {
+    margin-right: 5px;    
+}
+
+.com_treat {
+    margin-right: 5px;
+    color: #6d6d6d;
+}
+
+.com_donate {
+    font-weight: 700;
+    margin-right: 5px;
+}
+
+.com_role {
+    margin-right: 5px;
+}
+
+.com_chat {
+    font-size: 18;
+    background-color: white;
+    width: 550px;
+    height: 42px;
+    border-radius: 30px;
+    border: 2px solid #7149c6;
+    margin-top: 20px;
+    padding: 8px 20px;
+}
+
+
+/* footer */
+.footer {
+    background-color: #7149c6;
+    color: white;
+    padding: 20px;
+}
+
+.line_separator {
+
+    border: 2px solid #8866cf;
+}
+
+.footer {
+    font-size: 18px;
+}
