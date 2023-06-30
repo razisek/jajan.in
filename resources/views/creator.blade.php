@@ -938,8 +938,8 @@
                 })
                 .then(response => response.json())
                 .then(data => {
-                    $('#loading').addClass('hidden');
                     if (data.status == 'error') {
+                        $('#loading').addClass('hidden');
                         $('#donate-alert').removeClass('hidden');
                         $('#msg-donate').text(data.message);
                     } else {
