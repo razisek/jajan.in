@@ -24,6 +24,9 @@
             <p class="text-sm underline italic font-medium mt-4">Bayar sebelum
                 {{ \Carbon\Carbon::create($transaction->expired_at)->format('d F Y H:i:s') }}</p>
             <img src="{{ $qris }}" alt="qris_qr" class="mt-4 rounded-lg">
+            <a href="{{ $transaction->link_qr }}" target="_blank" class="border-b-[6px] border-2 cursor-pointer mt-4 p-2 text-sm rounded-sm border-[#38C516] text-[#38C516] hover:text-white hover:bg-[#38C516] hover:border-b-2 hover:border-t-[6px] transition-all duration-300">
+                Unduh QR Code
+            </a>
         </div>
         <p class="font-semibold text-base mt-6">Pembayaran untuk:</p>
         <p class="text-sm font-semibold text-[#666666]">Dukungan {{ $transaction->quantity }}
