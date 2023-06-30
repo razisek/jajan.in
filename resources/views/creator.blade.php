@@ -56,8 +56,8 @@
     </div>
     <div class="text-center">
         <h1 class="font-extrabold text-3xl py-2">{{ $page->user->name }}</h1>
-        <h3 class="text-base pb-4">{{ $page->category->name }}</h3>
-        <p class="text-lg max-w-3xl m-auto">{{ $page->about }}</p>
+        <h3 class="text-base pb-4">{{ $page->category->name ?? '' }}</h3>
+        <p class="text-lg max-w-3xl m-auto">{{ $page->about ?? '-' }}</p>
     </div>
 
 
