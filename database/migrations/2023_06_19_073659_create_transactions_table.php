@@ -17,14 +17,19 @@ return new class extends Migration
             $table->string('invoice_no');
             $table->string('payment_method');
             $table->enum('payment_status', ['pending', 'paid', 'cancel']);
-            $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade')->nullable();
+            $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('message')->nullable();
             $table->foreignId('unit_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
+            $table->foreignId('page_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('name');
             $table->string('email');
-            $table->integer('amount');
+            $table->integer('quantity');
+            $table->boolean('is_anonymous')->default(false);
             $table->integer('price');
             $table->integer('total');
+            $table->text('qr');
+            $table->text('link_qr');
+            $table->timestamp('expired_at');
             $table->timestamps();
         });
     }

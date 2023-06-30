@@ -14,6 +14,11 @@
 </head>
 
 <body>
+    <div id="loading" class="hidden fixed inset-0 bg-gray-800 bg-opacity-70 z-50">
+        <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-2xl">Please
+            wait...
+        </div>
+    </div>
     <div class="header justify-between p-5 px-24 flex flex-wrap flex-col md:flex-row md:items-center items-center">
         <div class="logo">
             <a href="/"><img src="https://res.cloudinary.com/dgmwbkto1/image/upload/v1687234627/logo_tddyns.png"
@@ -47,7 +52,7 @@
         <div class="flex justify-center items-center gap-5 -mt-24">
             <button class="py-3 px-12 bg-primary rounded-full text-white font-bold text-lg object-cover"><i
                     class="bi bi-rocket-takeoff mr-3"></i>Follow</button>
-            <img class="h-48 w-48 rounded-full bg-white p-4 shadow-lg"
+            <img class="h-48 w-48 rounded-full bg-white p-4 shadow-lg object-cover"
                 src="{{ $avatar == '' ? 'https://ui-avatars.com/api/?background=random&name=' . $page->user->name : $avatar }}"
                 alt="Profile">
             <button class="py-3 px-12 bg-primary rounded-full text-white font-bold text-lg"><i
@@ -598,11 +603,15 @@
                         <p class="text-lg">Jajan.in</p>
                         <div></div>
                     </div>
+                    <div id="donate-alert" class="my-4 px-4 hidden" data-dismissible="alert">
+                        <div class="mr-12  font-regular relative w-full rounded-lg bg-pink-500 p-4 text-base leading-5 text-white opacity-100"
+                            id="msg-donate">Alert dismissible</div>
+                    </div>
                     {{-- Step 1 --}}
                     <div id="step1" class="h-[650px]">
                         <div class="bg-primaryLight p-4">
                             <div class="flex flex-col items-center">
-                                <img class="h-28 w-28 rounded-full object-fill bg-white p-2 shadow-lg"
+                                <img class="h-28 w-28 rounded-full object-cover bg-white p-2 shadow-lg"
                                     src="{{ $avatar == '' ? 'https://ui-avatars.com/api/?background=random&name=' . $page->user->name : $avatar }}"
                                     alt="Profile">
                                 <p class="font-extrabold text-base mt-2">{{ $page->user->name }}</p>
@@ -673,7 +682,7 @@
                             <p class="text-xs text-gray-600">Jajan.in Untuk</p>
                             <div class="flex items-center justify-between mt-2">
                                 <div class="flex items-center gap-2">
-                                    <img class="h-16 w-16 rounded-full object-fill bg-white p-1 shadow-lg"
+                                    <img class="h-16 w-16 rounded-full object-cover bg-white p-1 shadow-lg"
                                         src="{{ $avatar == '' ? 'https://ui-avatars.com/api/?background=random&name=' . $page->user->name : $avatar }}"
                                         alt="Profile">
                                     <div>
@@ -705,7 +714,8 @@
                             </div>
                         </div>
                         <div class="flex flex-col items-center mt-4">
-                            <input type="text" placeholder="Nama" value="{{ auth()->user()->name ?? '' }}"
+                            <input type="text" id="name" required placeholder="Nama"
+                                value="{{ auth()->user()->name ?? '' }}"
                                 class="w-full border text-base border-gray-300 rounded-md px-3 py-2 placeholder-primaryLight focus:border-primary focus:border-1 outline-none">
                             <textarea id="message" rows="4"
                                 class="block mt-2 placeholder-primaryLight p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:border-primary focus:border-1 outline-none"
@@ -739,7 +749,7 @@
                             <p class="text-xs text-gray-600">Jajan.in Untuk</p>
                             <div class="flex items-center justify-between mt-2">
                                 <div class="flex items-center gap-2">
-                                    <img class="h-16 w-16 rounded-full object-fill bg-white p-1 shadow-lg"
+                                    <img class="h-16 w-16 rounded-full object-cover bg-white p-1 shadow-lg"
                                         src="{{ $avatar == '' ? 'https://ui-avatars.com/api/?background=random&name=' . $page->user->name : $avatar }}"
                                         alt="Profile">
                                     <div>
@@ -781,7 +791,8 @@
                             </div>
                         </div>
                         <div class="absolute bottom-0 right-0 w-full">
-                            <p class="text-xs text-center px-8 text-gray-500">Dengan melanjutkan pembayaran, anda telah menyetujui
+                            <p class="text-xs text-center px-8 text-gray-500">Dengan melanjutkan pembayaran, anda telah
+                                menyetujui
                                 syarat dan ketentuan & kebijakan
                                 privasi kami, serta memahami bahwa pembayaran dilakukan melalui <span
                                     class="text-primary">Midtrans</span>.</p>
@@ -899,6 +910,43 @@
                 $('#total4').text('Rp ' + showTotal);
             }
         }
+
+        $('#pay').click(function() {
+            $('#loading').removeClass('hidden');
+            $('#donate-alert').addClass('hidden');
+            $('#msg-donate').text('');
+
+            const jumlah = $('#jumlah1').text();
+            const message = $('#message').val();
+            const name = $('#name').val();
+            const anonymous = $('#default-checkbox').is(':checked');
+            const total = price * jumlah;
+
+            fetch("{{ route('api.payment') }}", {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'X-CSRF-TOKEN': "{{ csrf_token() }}"
+                    },
+                    body: JSON.stringify({
+                        creator_id: {{ $page->id }},
+                        display_name: name,
+                        quantity: jumlah,
+                        message: message,
+                        anonymous: anonymous,
+                    })
+                })
+                .then(response => response.json())
+                .then(data => {
+                    $('#loading').addClass('hidden');
+                    if (data.status == 'error') {
+                        $('#donate-alert').removeClass('hidden');
+                        $('#msg-donate').text(data.message);
+                    } else {
+                        window.location.href = data.redirect_url;
+                    }
+                });
+        });
     </script>
 
 </body>

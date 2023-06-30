@@ -37,4 +37,9 @@ class Page extends Model implements HasMedia
     {
         return $this->belongsTo(Unit::class);
     }
+
+    public function transactions()
+    {
+        return $this->hasMany(Transaction::class);
+    }
 }

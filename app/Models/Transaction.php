@@ -10,4 +10,14 @@ class Transaction extends Model
     use HasFactory;
 
     protected $guarded = ['id'];
+
+    public function page()
+    {
+        return $this->belongsTo(Page::class);
+    }
+
+    public function unit()
+    {
+        return $this->belongsTo(Unit::class);
+    }
 }

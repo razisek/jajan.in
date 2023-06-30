@@ -4,6 +4,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CreatorController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PageController;
+use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PostController;
 use Illuminate\Support\Facades\Route;
 
@@ -52,7 +53,13 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     // social links
     Route::post('social-links', [PageController::class, 'socialLinks'])->name('api.social-links');
     Route::get('social-links/{id}/delete', [PageController::class, 'deleteSocialLink'])->name('api.social-links.delete');
+
+    // payment
+    Route::post('payment', [PaymentController::class, 'payment'])->name('api.payment');
 });
 
+Route::post('/payment/notification', [PaymentController::class, 'notification'])->name('payment.notif');
+Route::get('checkout/{transaction}', [PaymentController::class, 'checkout'])->name('page.checkout');
+Route::get('payment-status/{transaction}', [PaymentController::class, 'paymentStatus'])->name('page.payment-status');
 
 Route::get('/{username}', [CreatorController::class, 'index'])->name('page.creator');
