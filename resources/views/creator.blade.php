@@ -102,16 +102,16 @@
     </div>
 
     <div class="flex mt-8 justify-center">
-        <div class="w-4/5 bg-primary rounded-3xl p-6 text-white">
+        <div class="max-w-screen-xl w-4/5 bg-primary rounded-3xl p-6 text-white">
             <p class="font-bold text-2xl">Beli Pedang Baru</p>
             <p class="text-xl mt-4"><span class="font-bold">Rp 450.000</span> terkumpul dari Rp 1.000.000 </p>
             <div class="w-full bg-primary border-[4px] border-white rounded-full h-8 mt-2">
                 <div class="bg-secondary h-6 rounded-full" style="width: 45%"></div>
             </div>
             <p class="text-xl text-center mt-2"><span class="font-bold">45%</span> tercapai</p>
-            <a href="#donate1" class="flex justify-center mt-4">
+            <a id="open-donate" class="flex justify-center mt-4">
                 <button
-                    class="border-2 border-white text-base py-px px-6 rounded-full hover:bg-white hover:text-primary font-medium">Support</button>
+                    class="border-2 border-white text-base py-2 px-8 rounded-full hover:bg-white hover:text-primary font-medium">Support</button>
             </a>
         </div>
     </div>
@@ -281,7 +281,7 @@
     </div>
 
     <!-- reword pop up -->
-    <div id="view" class="pop_up">
+    {{-- <div id="view" class="pop_up">
         <div class="pop_view">
             <div class="view_header flex justify-between">
                 <h1 class="text-base font-extrabold pt-0.5 ml-4">Reward Jajan.in Asta Black Bull</h1>
@@ -585,230 +585,321 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <!-- donate -->
-    {{-- <div class="donate_card">
-        <h1 class="text-white text-4xl font-bold mb-5">Beli Pedang Baru</h1>
-        <div class="flex">
-            <h2 class="text-white text-3xl font-bold mb-5 pr-2">Rp 450.000</h2>
-            <h2 class="text-white text-3xl mb-5">terkumpul dari Rp 1.000.000</h2>
-        </div>
-        <img class="mb-3" src="{{ URL('assets/Donate_Progress Bar.png') }}" alt="">
-        <div class="flex justify-center">
-            <h2 class="text-white text-3xl font-bold text-center mb-3 pr-2">45%</h2>
-            <h2 class="text-white text-3xl text-center mb-3">tercapai</h2>
-        </div>
-        <div class="flex justify-center">
-            <a href="#donate1"><button class="btn_support">Support</button></a>
-        </div>
     </div> --}}
 
-    <!-- pop up donate -->
-    <!-- donate package -->
-    <div id="donate1" class="pop_up">
-        <div class="pop_donate" style="margin-top: 30px;">
-            <div class="pop_header">
-                <a href="#"><img class="close_btn_img" src="{{ URL('assets/icon_close.png') }}"
-                        alt=""></a>
-                <h1 class="pop_title">Jajan.in</h1>
-            </div>
-
-            <div class="pop_body">
-                <div class="pop_creator_profil">
-                    <img class="pop_creator_img" src="{{ URL('assets/astaprofil.png') }}" alt="">
-                    <h1 class="text-center font-semibold text-base">Asta Black Bull</h1>
-                    <p class="text-center font-light text-xs">Warrior</p>
-                    <p class="text-sm text-white">beli pedang baru</p>
-                    <div class="flex text-sm text-white">
-                        <p class="mr-1 font-bold">45%</p>
-                        <p class="font-light">tercapai</p>
+    <div id="modal-donasi" class="fixed hidden inset-0 bg-gray-800 bg-opacity-70 z-30 transition-all duration-300">
+        <div
+            class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-2xl transition-all duration-300">
+            <div class="relative max-h-full transition-all duration-300">
+                <div class="bg-white rounded-3xl">
+                    <div
+                        class="w-[450px] flex rounded-t-3xl justify-between items-center font-semibold bg-primary text-white py-2 px-4">
+                        <i id="modal-donasi-close" class="bi bi-x-lg cursor-pointer"></i>
+                        <p class="text-lg">Jajan.in</p>
+                        <div></div>
                     </div>
-                    <img class="" src="{{ URL('assets/Donate_Progress Bar2.png') }}" alt="">
-                    <div class="flex text-sm text-white">
-                        <p class="mr-1 font-bold">Rp 450.000</p>
-                        <p class="font-light">terkumpul dari Rp 1.000.000</p>
+                    {{-- Step 1 --}}
+                    <div id="step1" class="h-[650px]">
+                        <div class="bg-primaryLight p-4">
+                            <div class="flex flex-col items-center">
+                                <img class="h-28 w-28 rounded-full object-fill bg-white p-2 shadow-lg"
+                                    src="{{ $avatar == '' ? 'https://ui-avatars.com/api/?background=random&name=' . $page->user->name : $avatar }}"
+                                    alt="Profile">
+                                <p class="font-extrabold text-base mt-2">{{ $page->user->name }}</p>
+                                <p class="text-sm font-extralight">{{ $page->category->name ?? '-' }}</p>
+                            </div>
+                            <div>
+                                <p class="text-base font-medium mb-px">Beli Pedang Baru - 45%</p>
+                                <div class="w-full bg-primaryLight border-2 border-white rounded-full h-3">
+                                    <div class="bg-secondary h-2 rounded-full" style="width: 45%"></div>
+                                </div>
+                                <p class="text-sm text-[#5e5d5d] mt-1"><span class="font-bold">Rp 450.000</span>
+                                    terkumpul dari Rp 1.000.000 </p>
+                            </div>
+                        </div>
+                        <div class="p-4 flex flex-col items-center">
+                            <img src="{{ $unit->getFirstMediaUrl('unit') }}" class="h-14 w-14 object-contain"
+                                alt="unit">
+                            <p class="text-sm font-medium mt-2">{{ $unit->name }}</p>
+                            <p class="text-xs font-light text-[#5e5d5d]">Rp
+                                {{ number_format($unit->price, 0, ',', '.') }}/unit</p>
+                            <p id="total1" class="font-bold font-base mt-4">Rp
+                                {{ number_format($unit->price, 0, ',', '.') }}</p>
+                            <div class="mt-2 flex items-center gap-4 text-lg">
+                                <i onclick="minusJumlah()"
+                                    class="bi bi-dash bg-primaryLight rounded-full text-black px-2 py-1 cursor-pointer"></i>
+                                <p id="jumlah1" class="border-2 w-12 text-center rounded-md p-2">1</p>
+                                <i onclick="addJumlah()"
+                                    class="bi bi-plus bg-primary rounded-full text-white px-2 py-1 cursor-pointer"></i>
+                            </div>
+                            <div class="flex flex-wrap justify-center items-center gap-2 mt-3">
+                                <div id="unit-count1" data-count="5"
+                                    class="text-primary border border-primary rounded-full px-2 py-px text-xs cursor-pointer hover:bg-primary hover:text-white">
+                                    5 Unit
+                                </div>
+                                <div id="unit-count2" data-count="10"
+                                    class="text-primary border border-primary rounded-full px-2 py-px text-xs cursor-pointer hover:bg-primary hover:text-white">
+                                    10 Unit
+                                </div>
+                                <div id="unit-count3" data-count="25"
+                                    class="text-primary border border-primary rounded-full px-2 py-px text-xs cursor-pointer hover:bg-primary hover:text-white">
+                                    25 Unit
+                                </div>
+                                <div id="unit-count4" data-count="50"
+                                    class="text-primary border border-primary rounded-full px-2 py-px text-xs cursor-pointer hover:bg-primary hover:text-white">
+                                    50 Unit
+                                </div>
+                                <div id="unit-count5" data-count="100"
+                                    class="text-primary border border-primary rounded-full px-2 py-px text-xs cursor-pointer hover:bg-primary hover:text-white">
+                                    100
+                                    Unit
+                                </div>
+                            </div>
+                        </div>
+                        <div class="absolute bottom-0 right-0 w-full">
+                            <hr class="w-full h-px my-2 bg-gray-300 border-0">
+                            <div id="unit-count6" class="flex justify-end">
+                                <button id="next1"
+                                    class="w-32 bg-primary text-white py-2 rounded-full shadow-lg m-2 font-bold text-sm">
+                                    Next
+                                    <i class="bi bi-arrow-right ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div>
-                    <img class="pop_creator_img2" src="{{ URL('assets/astatembaga.png') }}" alt="">
-                    <h1 class="text-center font-semibold">Tembaga Murni</h1>
-                    <p class="text-center font-light text-xs text-inherit">Rp 2.000/unit</p>
-                    <h1 class="text-center font-bold py-5">Rp 50.000</h1>
-                    <div class="flex justify-center">
-                        <button class="btn_count_donate"><img src="{{ URL('assets/.png') }}"
-                                alt="">-</button>
-                        <p class="donate_count">25</p>
-                        <button class="btn_count_donate"><img src="{{ URL('assets/.png') }}"
-                                alt="">+</button>
+                    {{-- Step 2 --}}
+                    <div id="step2" class="p-4 h-[650px] hidden">
+                        <div class="bg-primaryLight p-4 rounded-lg">
+                            <p class="text-xs text-gray-600">Jajan.in Untuk</p>
+                            <div class="flex items-center justify-between mt-2">
+                                <div class="flex items-center gap-2">
+                                    <img class="h-16 w-16 rounded-full object-fill bg-white p-1 shadow-lg"
+                                        src="{{ $avatar == '' ? 'https://ui-avatars.com/api/?background=random&name=' . $page->user->name : $avatar }}"
+                                        alt="Profile">
+                                    <div>
+                                        <p class="text-sm font-extrabold">{{ $page->user->name }}</p>
+                                        <p class="text-xs font-extralight">{{ '@' . $page->user->username }}</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <img id="unit-icon" class="h-14 w-14 object-contain transition-all duration-500"
+                                        src="{{ $unit->getFirstMediaUrl('unit') }}" alt="unit">
+                                    <div>
+                                        <p class="text-sm font-bold">{{ $unit->name }}</p>
+                                        <p class="text-xs font-extralight">Rp
+                                            {{ number_format($unit->price, 0, ',', '.') }}/unit</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-600 mt-4">Jajan.in Kamu</p>
+                            <div class="flex items-center justify-between">
+                                <div class="mt-2 flex items-center gap-2 text-sm">
+                                    <i onclick="minusJumlah()"
+                                        class="bi bi-dash bg-primaryLight rounded-full text-black px-2 py-px cursor-pointer"></i>
+                                    <p id="jumlah2" class="border-2 w-8 text-center rounded-md p-1 bg-white">1</p>
+                                    <i onclick="addJumlah()"
+                                        class="bi bi-plus bg-primary rounded-full text-white p-1 px-2 cursor-pointer"></i>
+                                </div>
+                                <p id="total2" class="font-bold text-lg">Rp
+                                    {{ number_format($unit->price, 0, ',', '.') }}</p>
+                            </div>
+                        </div>
+                        <div class="flex flex-col items-center mt-4">
+                            <input type="text" placeholder="Nama" value="{{ auth()->user()->name ?? '' }}"
+                                class="w-full border text-base border-gray-300 rounded-md px-3 py-2 placeholder-primaryLight focus:border-primary focus:border-1 outline-none">
+                            <textarea id="message" rows="4"
+                                class="block mt-2 placeholder-primaryLight p-2.5 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:border-primary focus:border-1 outline-none"
+                                placeholder="Pesan Dukungan"></textarea>
+                        </div>
+                        <div class="flex items-center mt-2">
+                            <input id="default-checkbox" type="checkbox" value=""
+                                class="w-4 h-4 text-primary bg-gray-100 border-gray-300 rounded focus:ring-2">
+                            <label for="default-checkbox" class="ml-2 text-xs text-gray-400">Dukung Sebagai
+                                Anonim</label>
+                        </div>
+                        <div class="absolute bottom-0 right-0 w-full">
+                            <hr class="w-full h-px my-2 bg-gray-300 border-0">
+                            <div class="flex justify-between items-center">
+                                <button id="back1"
+                                    class="w-32 text-black py-2 rounded-full m-2 font-bold text-sm">
+                                    <i class="bi bi-arrow-left mr-2"></i>
+                                    Back
+                                </button>
+                                <button id="next2"
+                                    class="w-32 bg-primary text-white py-2 rounded-full shadow-lg m-2 font-bold text-sm">
+                                    Next
+                                    <i class="bi bi-arrow-right ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                    <div class="flex justify-around mx-5">
-                        <p class="donate_option">5 Unit</p>
-                        <p class="donate_option">5 Unit</p>
-                        <p class="donate_option">5 Unit</p>
-                        <p class="donate_option">5 Unit</p>
-                        <p class="donate_option">5 Unit</p>
+                    {{-- Step 3 --}}
+                    <div id="step3" class="p-4 h-[650px] hidden">
+                        <div class="bg-primaryLight p-4 rounded-lg">
+                            <p class="text-xs text-gray-600">Jajan.in Untuk</p>
+                            <div class="flex items-center justify-between mt-2">
+                                <div class="flex items-center gap-2">
+                                    <img class="h-16 w-16 rounded-full object-fill bg-white p-1 shadow-lg"
+                                        src="{{ $avatar == '' ? 'https://ui-avatars.com/api/?background=random&name=' . $page->user->name : $avatar }}"
+                                        alt="Profile">
+                                    <div>
+                                        <p class="text-sm font-extrabold">{{ $page->user->name }}</p>
+                                        <p class="text-xs font-extralight">{{ '@' . $page->user->username }}</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center gap-2">
+                                    <img class="h-14 w-14 object-contain" src="{{ $unit->getFirstMediaUrl('unit') }}"
+                                        alt="unit">
+                                    <div>
+                                        <p class="text-sm font-bold">{{ $unit->name }}</p>
+                                        <p class="text-xs font-extralight">Rp
+                                            {{ number_format($unit->price, 0, ',', '.') }}/unit</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <p class="text-xs text-gray-600 mt-4">Jajan.in Kamu</p>
+                            <div class="flex items-center justify-between">
+                                <div class="mt-2 flex items-center gap-2 text-sm">
+                                    <i onclick="minusJumlah()"
+                                        class="bi bi-dash bg-primaryLight rounded-full text-black px-2 py-px cursor-pointer"></i>
+                                    <p id="jumlah3" class="border-2 w-8 text-center rounded-md p-1 bg-white">1</p>
+                                    <i onclick="addJumlah()"
+                                        class="bi bi-plus bg-primary rounded-full text-white p-1 px-2 cursor-pointer"></i>
+                                </div>
+                                <p id="total3" class="font-bold text-lg">Rp
+                                    {{ number_format($unit->price, 0, ',', '.') }}</p>
+                            </div>
+                        </div>
+                        <p class="text-base mt-6 text-gray-400 font-bold">Metode Pembayaran</p>
+                        <div class="flex items-center gap-3 border p-2">
+                            <img src="https://seeklogo.com/images/Q/quick-response-code-indonesia-standard-qris-logo-F300D5EB32-seeklogo.com.png"
+                                alt="qris logo" class="h-16 w-16 object-contain">
+                            <div>
+                                <p class="font-bold text-lg">Qris</p>
+                                <p class="text-xs text-[#818181] font-light">Siapkan aplikasi yang mendukung scan QRIS
+                                </p>
+                            </div>
+                        </div>
+                        <div class="absolute bottom-0 right-0 w-full">
+                            <p class="text-xs text-center px-8 text-gray-500">Dengan melanjutkan pembayaran, anda telah menyetujui
+                                syarat dan ketentuan & kebijakan
+                                privasi kami, serta memahami bahwa pembayaran dilakukan melalui <span
+                                    class="text-primary">Midtrans</span>.</p>
+                            <div
+                                class="flex justify-between items-center mx-8 mt-2 bg-primaryLight py-1 px-4 rounded-full text-primary text-lg">
+                                <p>Total</p>
+                                <p id="total4">Rp {{ number_format($unit->price, 0, ',', '.') }}</p>
+                            </div>
+                            <hr class="w-full h-px my-2 bg-gray-300 border-0">
+                            <div class="flex justify-between items-center">
+                                <button id="back2"
+                                    class="w-32 text-black py-2 rounded-full m-2 font-bold text-sm">
+                                    <i class="bi bi-arrow-left mr-2"></i>
+                                    Back
+                                </button>
+                                <button id="pay"
+                                    class="w-32 bg-primary text-white py-2 rounded-full shadow-lg m-2 font-bold text-sm">
+                                    Bayar
+                                    <i class="bi bi-arrow-right ml-2"></i>
+                                </button>
+                            </div>
+                        </div>
                     </div>
-                </div>
-            </div>
-
-            <div class="pop_footer">
-                <div class="pop_footer2">
-                    <a class="ml-auto" href="#donate2"><button class="next_btn">Next<img class="next_img"
-                                src="{{ URL('assets/icon_next.png') }}" alt=""></button></a>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="donate2" class="pop_up">
-        <div class="pop_donate" style="margin-top: 30px;">
-            <div class="pop_header">
-                <a href="#"><img class="close_btn_img" src="{{ URL('assets/icon_close.png') }}"
-                        alt=""></a>
-                <h1 class="pop_title">Jajan.in</h1>
-            </div>
+    <script src="https://code.jquery.com/jquery-3.7.0.min.js"
+        integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script>
+        let price = {{ $unit->price }};
+        let total = price;
 
-            <div class="pop_body pt-3.5">
-                <div class="donate_info">
-                    <h1 class="text-base text-white font-bold mb-2">Jajan.in Untuk</h1>
-                    <div class="flex">
-                        <div class="flex justify-start w-1/2">
-                            <img class="w-20 h-auto" src="{{ URL('assets/astaprofil.png') }}" alt="">
-                            <div class="my-auto ml-2">
-                                <h1 class="text-sm font-bold">Asta Black Bull</h1>
-                                <p class="text-xs">@astrablackbull</p>
-                            </div>
-                        </div>
-                        <div class="flex justify-start w-1/2">
-                            <img class="w-16 h-16 mt-1 ml-2" src="{{ URL('assets/astatembaga.png') }}"
-                                alt="">
-                            <div class="my-auto ml-2">
-                                <h1 class="text-sm">Tembaga Murni</h1>
-                                <p class="text-xs">Rp 2.000/ Unit</p>
-                            </div>
-                        </div>
-                    </div>
-                    <h1 class="text-base text-white font-bold my-2">Jajan.in Kamu</h1>
-                    <div class="flex justify-between">
-                        <div class="flex justify-start">
-                            <button class="btn_count_donate"><img src="{{ URL('assets/.png') }}"
-                                    alt="">-</button>
-                            <p class="donate_count">25</p>
-                            <button class="btn_count_donate"><img src="{{ URL('assets/.png') }}"
-                                    alt="">+</button>
-                        </div>
-                        <p class="font-extrabold text-2xl">Rp 50.000</p>
-                    </div>
-                </div>
-                <div class="m-4">
-                    <div class="relative mb-4">
-                        <label for="full-name" class="leading-7 text-sm text-slate-500">Name</label>
-                        <input type="text" id="full-name" name="full-name"
-                            class="w-full bg-white rounded-lg border border-black focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                    </div>
-                    <div class="relative mb-4">
-                        <label for="email" class="leading-7 text-sm text-slate-500">Pesan Dukungan</label>
-                        <input type="email" id="email" name="email"
-                            class="w-full h-24 bg-white rounded-lg border border-black focus:border-indigo-500 focus:ring-2 focus:ring-indigo-200 text-base outline-none text-black py-1 px-3 leading-8 transition-colors duration-200 ease-in-out">
-                    </div>
-                </div>
-                <label class="ml-4">
-                    <input type="checkbox" checked="checked">
-                    <span class="text-cs text-slate-500">Jadikan pesan private</span>
-                </label>
-            </div>
+        $(document).ready(function() {
+            $('#open-donate').click(function() {
+                $('#modal-donasi').removeClass('hidden');
+            });
+            $('#modal-donasi-close').click(function() {
+                $('#modal-donasi').addClass('hidden');
+            });
+            $('#next1').click(function() {
+                $('#step1').addClass('hidden');
+                $('#step2').removeClass('hidden');
+                $('#step3').addClass('hidden');
+            });
+            $('#next2').click(function() {
+                $('#step1').addClass('hidden');
+                $('#step2').addClass('hidden');
+                $('#step3').removeClass('hidden');
+            });
+            $('#back1').click(function() {
+                $('#step1').removeClass('hidden');
+                $('#step2').addClass('hidden');
+                $('#step3').addClass('hidden');
+            });
+            $('#back2').click(function() {
+                $('#step1').addClass('hidden');
+                $('#step2').removeClass('hidden');
+                $('#step3').addClass('hidden');
+            });
+        });
 
-            <div class="pop_footer">
-                <div class="pop_footer2">
-                    <a href="#donate1"><button class="back_btn"><img class="back_img"
-                                src="{{ URL('assets/icon_back.png') }}" alt="">Back</button></a>
-                    <a href="#donate3"><button class="next_btn">Next<img class="next_img"
-                                src="{{ URL('assets/icon_next.png') }}" alt=""></button></a>
-                </div>
-            </div>
-        </div>
-    </div>
+        $('#unit-count1,#unit-count2,#unit-count3,#unit-count4,#unit-count5').click(function() {
+            var count = $(this).data('count');
+            $('#jumlah1').text(count);
+            $('#jumlah2').text(count);
+            $('#jumlah3').text(count);
 
-    <div id="donate3" class="pop_up">
-        <div class="pop_donate" style="margin-top: 30px;">
-            <div class="pop_header">
-                <a href="#"><img class="close_btn_img" src="{{ URL('assets/icon_close.png') }}"
-                        alt=""></a>
-                <h1 class="pop_title">Jajan.in</h1>
-            </div>
+            total = count * price;
+            const showTotal = total.toLocaleString('id-ID', {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            })
+            $('#total1').text('Rp ' + showTotal);
+            $('#total2').text('Rp ' + showTotal);
+            $('#total3').text('Rp ' + showTotal);
+            $('#total4').text('Rp ' + showTotal);
+        });
 
-            <div class="pop_body pt-3.5">
-                <div class="donate_info">
-                    <h1 class="text-base text-white font-bold mb-2">Jajan.in Untuk</h1>
-                    <div class="flex">
-                        <div class="flex justify-start w-1/2">
-                            <img class="w-20 h-auto" src="{{ URL('assets/astaprofil.png') }}" alt="">
-                            <div class="my-auto ml-2">
-                                <h1 class="text-sm font-bold">Asta Black Bull</h1>
-                                <p class="text-xs">@astrablackbull</p>
-                            </div>
-                        </div>
-                        <div class="flex justify-start w-1/2">
-                            <img class="w-16 h-16 mt-1 ml-2" src="{{ URL('assets/astatembaga.png') }}"
-                                alt="">
-                            <div class="my-auto ml-2">
-                                <h1 class="text-sm">Tembaga Murni</h1>
-                                <p class="text-xs">Rp 2.000/ Unit</p>
-                            </div>
-                        </div>
-                    </div>
-                    <h1 class="text-base text-white font-bold my-2">Jajan.in Kamu</h1>
-                    <div class="flex justify-between">
-                        <div class="flex justify-start">
-                            <button class="btn_count_donate"><img src="{{ URL('assets/.png') }}"
-                                    alt="">-</button>
-                            <p class="donate_count">25</p>
-                            <button class="btn_count_donate"><img src="{{ URL('assets/.png') }}"
-                                    alt="">+</button>
-                        </div>
-                        <p class="font-extrabold text-2xl">Rp 50.000</p>
-                    </div>
-                    <div class="flex justify-between mt-2">
-                        <h1 class="font-bold text-xl">Biaya Transfer</h1>
-                        <p class="font-extrabold text-2xl">Rp 80</p>
-                    </div>
-                </div>
-                <div class="payment">
-                    <h1>Pilih Metode Pembayaran</h1>
-                    <div class="payment_method">
-                        <div class="w-1/4">
-                            <img class="w-14 mx-auto mt-1" src="{{ URL('assets/qrcode.png') }}" alt="">
-                        </div>
-                        <div class="w-1/2">
-                            <p class="text-2xl font-bold">QRIS</p>
-                            <p class="text-xs text-inherit">Siapkan aplikasi yang mendukung scan</p>
-                        </div>
-                        <div class="w-1/4">
-                            <img class="w-6 mx-auto mt-4" src="{{ URL('assets/icon_down_arrow.png') }}"
-                                alt="">
-                        </div>
-                    </div>
-                    <p class="text-center text-xs text-inherit">Dengan melanjutkan pembayaran, anda telah menyetujui
-                        syarat dan ketentuan & kebijakan privasi kami, serta memahami bahwa pembayaran dilakukan melalui
-                        <span class="text-violet-600">Midtrans.</span>
-                    </p>
-                    <div class="total">
-                        <p>Total</p>
-                        <p>Rp 50.080</p>
-                    </div>
-                </div>
-            </div>
+        function addJumlah() {
+            var jumlah = parseInt($('#jumlah1').text());
+            jumlah += 2;
+            $('#jumlah1').text(jumlah);
+            $('#jumlah2').text(jumlah);
+            $('#jumlah3').text(jumlah);
 
-            <div class="pop_footer">
-                <div class="pop_footer2">
-                    <a href="#donate2"><button class="back_btn"><img class="back_img"
-                                src="{{ URL('assets/icon_back.png') }}" alt="">Back</button></a>
-                    <a href=""><button class="next_btn">Finish</button></a>
-                </div>
-            </div>
-        </div>
-    </div>
+            total = jumlah * price;
+            const showTotal = total.toLocaleString('id-ID', {
+                minimumFractionDigits: 0,
+                maximumFractionDigits: 0
+            })
+            $('#total1').text('Rp ' + showTotal);
+            $('#total2').text('Rp ' + showTotal);
+            $('#total3').text('Rp ' + showTotal);
+            $('#total4').text('Rp ' + showTotal);
+        }
+
+        function minusJumlah() {
+            if (parseInt($('#jumlah1').text()) > 2) {
+                var jumlah = parseInt($('#jumlah1').text());
+                jumlah -= 2;
+                $('#jumlah1').text(jumlah);
+                $('#jumlah2').text(jumlah);
+                $('#jumlah3').text(jumlah);
+
+                total = jumlah * price;
+                const showTotal = total.toLocaleString('id-ID', {
+                    minimumFractionDigits: 0,
+                    maximumFractionDigits: 0
+                })
+                $('#total1').text('Rp ' + showTotal);
+                $('#total2').text('Rp ' + showTotal);
+                $('#total3').text('Rp ' + showTotal);
+                $('#total4').text('Rp ' + showTotal);
+            }
+        }
+    </script>
 
 </body>
 

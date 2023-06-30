@@ -24,6 +24,8 @@ class CreatorController extends Controller
         $avatar = $page->user->getFirstMediaUrl('avatar');
         $header = $page->getFirstMediaUrl('header');
 
-        return view('creator', compact('page', 'medsos', 'avatar', 'header'));
+        $unit = $page->unit()->first();
+
+        return view('creator', compact('page', 'medsos', 'avatar', 'header', 'unit'));
     }
 }
