@@ -27,4 +27,9 @@ class Page extends Model implements HasMedia
     {
         return $this->hasMany(Unit::class);
     }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
+    }
 }
