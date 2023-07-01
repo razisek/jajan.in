@@ -103,7 +103,7 @@ class PaymentController extends Controller
                 'status' => 'success',
                 'message' => 'Payment expired'
             ], 200);
-        } else if ($request->transaction_status != 'settlement' || $request->transaction_status != 'expire' || $request->transaction_status != 'pending') {
+        } else if ($request->transaction_status != 'settlement' && $request->transaction_status != 'expire' && $request->transaction_status != 'pending') {
             $transaction = Transaction::where('transaction_no', $request->transaction_id)->firstOrFail();
             $transaction->update([
                 'payment_status' => 'cancel'
