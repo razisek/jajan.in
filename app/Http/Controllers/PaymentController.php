@@ -120,6 +120,10 @@ class PaymentController extends Controller
     {
         $transaction = Transaction::where('transaction_no', $transaction)->firstOrFail();
 
+        if ($transaction->payment_status != 'pending') {
+            return redirect()->route('page.payment-status', $transaction->transaction_no);
+        }
+
         $qr =  Builder::create()
             ->writer(new PngWriter())
             ->writerOptions([])
