@@ -16,35 +16,83 @@
 <body class="bg-[#F3F3F3] h-screen w-full grid place-items-center">
     <div class="bg-white p-10 rounded-lg shadow-lg">
         <div class="flex items-center gap-3">
-            <div
-                class="w-24 h-24 {{ $transaction->payment_status == 'paid' ? 'bg-[#3CD178]' : 'bg-secondary' }} flex justify-center items-center text-white rounded-full">
-                <i
-                    class="bi {{ $transaction->payment_status == 'paid' ? 'bi-check-lg' : 'bi-hourglass-bottom' }} text-[50px]"></i>
-            </div>
-            <div>
-                <p
-                    class="{{ $transaction->payment_status == 'paid' ? 'text-[#3CD178]' : 'text-secondary' }} font-bold text-2xl">
-                    {{ $transaction->payment_status == 'paid' ? 'Pembayaran Berhasil' : 'Menunggu Pembayaran' }}</p>
-                <p class="text-sm text-gray-400">
-                    {{ $transaction->payment_status == 'paid' ? 'Dibayar ' . \Carbon\Carbon::create($transaction->updated_at)->format('d F Y, H:i:s') : 'Selesaikan sebelum' . \Carbon\Carbon::create($transaction->expired_at)->format('d F Y, H:i:s') }}
-                </p>
-            </div>
+            @if ($transaction->payment_status == 'paid')
+                <div class="w-24 h-24 bg-[#3CD178] flex justify-center items-center text-white rounded-full">
+                    <i class="bi bi-check-lg text-[50px]"></i>
+                </div>
+                <div>
+                    <p class="text-[#3CD178] font-bold text-2xl">
+                        Pembayaran Berhasil</p>
+                    <p class="text-sm text-gray-400">
+                        Dibayar {{ \Carbon\Carbon::create($transaction->updated_at)->format('d F Y, H:i:s') }}
+                    </p>
+                </div>
+            @elseif ($transaction->payment_status == 'pending')
+                <div class="w-24 h-24 bg-secondary flex justify-center items-center text-white rounded-full">
+                    <i class="bi bi-hourglass-bottom text-[50px]"></i>
+                </div>
+                <div>
+                    <p class="text-secondary font-bold text-2xl">
+                        Menunggu Pembayaran</p>
+                    <p class="text-sm text-gray-400">
+                        Selesaikan sebelum
+                        {{ \Carbon\Carbon::create($transaction->expired_at)->format('d F Y, H:i:s') }}
+                    </p>
+                </div>
+            @elseif ($transaction->payment_status == 'cancel')
+                <div class="w-24 h-24 bg-red-600 flex justify-center items-center text-white rounded-full">
+                    <i class="bi bi-x-octagon text-[50px]"></i>
+                </div>
+                <div>
+                    <p class="text-red-600 font-bold text-2xl">
+                        Pembayaran Dibatalkan</p>
+                    <p class="text-sm text-gray-400">
+                        Dibatalkan
+                        {{ \Carbon\Carbon::create($transaction->updated_at)->format('d F Y, H:i:s') }}
+                    </p>
+                </div>
+            @elseif ($transaction->payment_status == 'expired')
+                <div class="w-24 h-24 bg-gray-500 flex justify-center items-center text-white rounded-full">
+                    <i class="bi bi-clock-history text-[50px]"></i>
+                </div>
+                <div>
+                    <p class="text-gray-500 font-bold text-2xl">
+                        Pembayaran Kadaluarsa</p>
+                    <p class="text-sm text-gray-400">
+                        Kadaluarsa
+                        {{ \Carbon\Carbon::create($transaction->expired_at)->format('d F Y, H:i:s') }}
+                    </p>
+                </div>
+            @endif
         </div>
-        <div class="flex items-center justify-center gap-3 mt-4">
-            <img src="{{ $transaction->page->user->getFirstMediaUrl('avatar') == '' ? 'https://ui-avatars.com/api/?background=random&name=' . $transaction->page->user->name : $transaction->page->user->getFirstMediaUrl('avatar') }}"
-                alt="ava"
-                class="w-16 h-16 object-contain rounded-full border-2 {{ $transaction->payment_status == 'paid' ? 'border-[#3CD178]' : 'border-secondary' }}">
+        <div class="flex items-center justify-between mx-5 gap-3 mt-4">
+            @if ($transaction->payment_status == 'paid')
+                <img src="{{ $transaction->page->user->getFirstMediaUrl('avatar') == '' ? 'https://ui-avatars.com/api/?background=random&name=' . $transaction->page->user->name : $transaction->page->user->getFirstMediaUrl('avatar') }}"
+                    alt="ava" class="w-16 h-16 object-contain rounded-full border-2 border-[#3CD178]">
+            @elseif ($transaction->payment_status == 'pending')
+                <img src="{{ $transaction->page->user->getFirstMediaUrl('avatar') == '' ? 'https://ui-avatars.com/api/?background=random&name=' . $transaction->page->user->name : $transaction->page->user->getFirstMediaUrl('avatar') }}"
+                    alt="ava" class="w-16 h-16 object-contain rounded-full border-2 border-secondary">
+            @elseif ($transaction->payment_status == 'cancel')
+                <img src="{{ $transaction->page->user->getFirstMediaUrl('avatar') == '' ? 'https://ui-avatars.com/api/?background=random&name=' . $transaction->page->user->name : $transaction->page->user->getFirstMediaUrl('avatar') }}"
+                    alt="ava" class="w-16 h-16 object-contain rounded-full border-2 border-red-600">
+            @elseif ($transaction->payment_status == 'expired')
+                <img src="{{ $transaction->page->user->getFirstMediaUrl('avatar') == '' ? 'https://ui-avatars.com/api/?background=random&name=' . $transaction->page->user->name : $transaction->page->user->getFirstMediaUrl('avatar') }}"
+                    alt="ava" class="w-16 h-16 object-contain rounded-full border-2 border-gray-500">
+            @endif
             <div>
-                <p class="text-base text-gray-600 mb-3">{{ $transaction->payment_status == 'paid' ? 'Terima kasih sudah Jajanin ' : 'Selesaikan trakteeran untuk ' }} {{ $transaction->page->user->name }}
-                    :)
-                </p>
                 @if ($transaction->payment_status == 'paid')
+                    <p class="text-base text-gray-600 mb-3">
+                        Terima kasih sudah Jajanin {{ $transaction->page->user->name }} :)
+                    </p>
                     <a href="{{ route('page.creator', $transaction->page->user->username) }}"
                         class="bg-primary px-4 py-2 rounded-full shadow-lg font-semibold text-white cursor-pointer">
                         <i class="bi bi-repeat"></i>
                         Jajanin Lagi
                     </a>
-                @else
+                @elseif ($transaction->payment_status == 'pending')
+                    <p class="text-base text-gray-600 mb-3">
+                        Selesaikan jajanin untuk {{ $transaction->page->user->name }} :)
+                    </p>
                     <div class="flex items-center gap-2 mt-3">
                         <div onClick="window.location.reload();"
                             class="bg-[#E7E7E7] px-3 py-1 rounded-full shadow-lg font-semibold text-[#737373] cursor-pointer">
@@ -57,6 +105,24 @@
                             Cara Bayar
                         </a>
                     </div>
+                @elseif ($transaction->payment_status == 'cancel')
+                    <p class="text-base text-gray-600 mb-3">
+                        Yah, Gagal Jajanin {{ $transaction->page->user->name }} :(
+                    </p>
+                    <a href="{{ route('page.creator', $transaction->page->user->username) }}"
+                        class="bg-primary px-4 py-2 rounded-full shadow-lg font-semibold text-white cursor-pointer">
+                        <i class="bi bi-repeat"></i>
+                        Jajanin Lagi
+                    </a>
+                @elseif ($transaction->payment_status == 'expired')
+                    <p class="text-base text-gray-600 mb-3">
+                        Yah, Gagal Pembayaran Jajanin {{ $transaction->page->user->name }} :(
+                    </p>
+                    <a href="{{ route('page.creator', $transaction->page->user->username) }}"
+                        class="bg-primary px-4 py-2 rounded-full shadow-lg font-semibold text-white cursor-pointer">
+                        <i class="bi bi-repeat"></i>
+                        Jajanin Lagi
+                    </a>
                 @endif
             </div>
         </div>

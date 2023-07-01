@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('transaction_no');
             $table->string('invoice_no');
             $table->string('payment_method');
-            $table->enum('payment_status', ['pending', 'paid', 'cancel']);
+            $table->enum('payment_status', ['pending', 'paid', 'cancel', 'expired'])->default('pending');
             $table->foreignId('user_id')->nullable()->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('message')->nullable();
             $table->foreignId('unit_id')->constrained()->onDelete('cascade')->onUpdate('cascade');

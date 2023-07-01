@@ -83,8 +83,7 @@ class PaymentController extends Controller
 
     public function notification(Request $request)
     {
-        if ($request->transaction_status == 'settlement')
-        {
+        if ($request->transaction_status == 'settlement') {
             $transaction = Transaction::where('transaction_no', $request->transaction_id)->firstOrFail();
             $transaction->update([
                 'payment_status' => 'paid'
@@ -93,6 +92,26 @@ class PaymentController extends Controller
             return response()->json([
                 'status' => 'success',
                 'message' => 'Payment success'
+            ], 200);
+        } else if ($request->transaction_status == 'expire') {
+            $transaction = Transaction::where('transaction_no', $request->transaction_id)->firstOrFail();
+            $transaction->update([
+                'payment_status' => 'expired'
+            ]);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Payment expired'
+            ], 200);
+        } else if ($request->transaction_status != 'settlement' || $request->transaction_status != 'expire' || $request->transaction_status != 'pending') {
+            $transaction = Transaction::where('transaction_no', $request->transaction_id)->firstOrFail();
+            $transaction->update([
+                'payment_status' => 'cancel'
+            ]);
+
+            return response()->json([
+                'status' => 'success',
+                'message' => 'Payment cancel'
             ], 200);
         }
     }
