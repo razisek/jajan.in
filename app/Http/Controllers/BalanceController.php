@@ -8,6 +8,9 @@ class BalanceController extends Controller
 {
     public function index()
     {
-        return view('dashboard.balance.index');
+        $user = auth()->user();
+        $balance = $user->page->balance->balance ?? 0;
+
+        return view('dashboard.balance.index', compact('balance'));
     }
 }

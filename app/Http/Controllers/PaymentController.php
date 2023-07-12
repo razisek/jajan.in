@@ -89,6 +89,12 @@ class PaymentController extends Controller
                 'payment_status' => 'paid'
             ]);
 
+            $transaction->page->balance()->update(
+                [
+                    'balance' => $transaction->page->balance->balance + $transaction->total
+                ]
+            );
+
             return response()->json([
                 'status' => 'success',
                 'message' => 'Payment success'

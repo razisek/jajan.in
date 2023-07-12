@@ -65,6 +65,10 @@ class AuthController extends Controller
                 'category_id' => null,
                 'unit_id' => 1,
             ]);
+
+            $user->page->balance()->create([
+                'balance' => 0,
+            ]);
         });
 
 
