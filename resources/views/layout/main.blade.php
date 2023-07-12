@@ -76,14 +76,14 @@
                                 <i class="bi bi-file-text"></i>
                                 <a href="{{ route('page.post.index') }}" class="block py-2 px-4">Post</a>
                             </li>
-                            <li class="flex items-center pl-4 rounded-full hover:bg-primaryLight hover:text-primary">
+                            {{-- <li class="flex items-center pl-4 rounded-full hover:bg-primaryLight hover:text-primary">
                                 <i class="bi bi-gift"></i>
                                 <a href="#" class="block py-2 px-4">Rewards</a>
-                            </li>
+                            </li> --}}
                             <hr class="w-4/5 h-px my-8 bg-[#E9E8E8] border-0">
-                            <li class="flex items-center pl-4 rounded-full hover:bg-primaryLight hover:text-primary">
+                            <li class="flex items-center pl-4 rounded-full hover:bg-primaryLight hover:text-primary {{ Route::is('page.support.user') || Route::is('page.support.anonim') ? 'bg-primaryLight text-primary' : '' }}">
                                 <i class="bi bi-people"></i>
-                                <a href="#" class="block py-2 px-4">My Supporters</a>
+                                <a href="{{ route('page.support.user') }}" class="block py-2 px-4">My Supporters</a>
                             </li>
                             <li class="flex items-center pl-4 rounded-full hover:bg-primaryLight hover:text-primary">
                                 <i class="bi bi-people"></i>

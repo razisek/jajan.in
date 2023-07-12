@@ -7,6 +7,7 @@ use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PageController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\PostController;
+use App\Http\Controllers\SupportController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -60,6 +61,10 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // balance
     Route::get('balance', [BalanceController::class, 'index'])->name('page.balance');
+
+    // support
+    Route::get('supporters/users', [SupportController::class, 'supportUser'])->name('page.support.user');
+    Route::get('supporters/anonymous', [SupportController::class, 'supportAnon'])->name('page.support.anonim');
 });
 
 Route::post('/payment/notification', [PaymentController::class, 'notification'])->name('payment.notif');
