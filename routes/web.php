@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\BalanceController;
 use App\Http\Controllers\CreatorController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PageController;
@@ -56,6 +57,9 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // payment
     Route::post('payment', [PaymentController::class, 'payment'])->name('api.payment');
+
+    // balance
+    Route::get('balance', [BalanceController::class, 'index'])->name('page.balance');
 });
 
 Route::post('/payment/notification', [PaymentController::class, 'notification'])->name('payment.notif');
