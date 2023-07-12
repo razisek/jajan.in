@@ -15,9 +15,10 @@ class AuthController extends Controller
         return view('auth.login');
     }
 
-    public function indexRegister()
+    public function indexRegister(Request $request)
     {
-        return view('auth.register');
+        $username = $request->user;
+        return view('auth.register', compact('username'));
     }
 
     public function login(Request $request)

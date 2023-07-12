@@ -64,8 +64,8 @@
                     <div class="relative flex flex-wrap items-stretch w-full">
                         <span
                             class="flex items-center whitespace-nowrap bg-gray-200 border border-gray-600 rounded-l-lg border-r-0 px-3 py-[0.25rem] text-center text-base font-normal leading-[1.6] text-black"
-                            id="basic-addon3">https://dijajan.in/</span>
-                        <input type="text" name="username" value="{{ old('username') }}"
+                            id="basic-addon3">{{ env('APP_URL') }}</span>
+                        <input type="text" name="username" value="{{ old('username', $username ?? '') }}"
                             class="relative m-0 block w-[1px] min-w-0 flex-auto p-2 text-gray-900 border border-gray-600 rounded-r-lg focus:ring-primary focus:border-primary"
                             id="username" autocomplete="off"/>
                     </div>

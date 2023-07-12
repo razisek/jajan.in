@@ -48,11 +48,11 @@
             <p class="text-lg text-slate-200">Di sini kamu bisa memberikan dukungan dan ikut berkontribusi untuk content
                 creator favorit kamu secara mudah dan menyenangkan dengan jajan.in</p>
             <div class="cta_input flex p-6 mt-20 rounded-full items-center">
-                <p class="text-3xl">jajan.in/</p>
-                <span><input
+                <p class="text-3xl">{{ env('APP_NAME') }}/</p>
+                <span><input id="username"
                         class="create_input text-3xl bg-purple-800 text-white  focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                         type="text"></span>
-                <button
+                <button id="create"
                     class="lgn_btn inline-flex items-center border-0 mx-4 py-2 px-8 focus:outline-none rounded-full text-base mt-4 md:mt-0">Create!
                 </button>
             </div>
@@ -379,6 +379,13 @@
             </div>
         </footer>
     </div>
+    <script>
+        const create = document.getElementById('create');
+        const username = document.getElementById('username');
+        create.addEventListener('click', () => {
+            window.location.href = `/register?user=${username.value}`;
+        });
+    </script>
 </body>
 
 </html>
