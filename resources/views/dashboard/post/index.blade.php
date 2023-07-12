@@ -17,29 +17,35 @@
                 Post Baru
             </a>
         </div>
-        <div class="grid grid-cols-3">
-            @foreach ($posts as $post)
-                <div class="p-6 bg-white border border-gray-200 rounded-lg shadow mt-8 max-w-sm">
-                    <p class="font-semibold text-lg">{{ $post->title }}</p>
-                    <p class="text-[#BCBCBC] text-[12px] mt-2">{{ $post->created_at->diffForHumans() }}</p>
-                    <img src="{{ $post->media[0]->original_url }}" alt="post"
-                        class="mt-2 rounded-lg h-44 w-screen max-h-44 object-cover">
-                    <p class="mt-2 text-[14px] line-clamp-2">{{ $post->content }}</p>
-                    <div class="mt-6 flex items-center gap-2">
-                        <a href="{{ route('page.post.edit', $post->id) }}"
-                            class="flex items-center text-[#747474] bg-[#D9D9D9] py-1 px-4 rounded-full cursor-pointer hover:bg-primary hover:text-white">
-                            <i class="bi bi-pencil-fill mr-3"></i>
-                            Edit
-                        </a>
-                        <a href="#" onclick="confirmDelete('{{ $post->id }}')"
-                            class="flex items-center text-[#747474] border border-[#D9D9D9] py-1 px-4 rounded-full cursor-pointer hover:border-red-500 hover:text-red-500">
-                            <i class="bi bi-x-lg mr-3"></i>
-                            Hapus
-                        </a>
+        @if ($posts->count() == 0)
+            <div class="w-full h-[350px] flex items-center justify-center font-bold text-xl">
+                Kamu belum membuat Post
+            </div>
+        @else
+            <div class="grid grid-cols-3">
+                @foreach ($posts as $post)
+                    <div class="p-6 bg-white border border-gray-200 rounded-lg shadow mt-8 max-w-sm">
+                        <p class="font-semibold text-lg">{{ $post->title }}</p>
+                        <p class="text-[#BCBCBC] text-[12px] mt-2">{{ $post->created_at->diffForHumans() }}</p>
+                        <img src="{{ $post->media[0]->original_url }}" alt="post"
+                            class="mt-2 rounded-lg h-44 w-screen max-h-44 object-cover">
+                        <p class="mt-2 text-[14px] line-clamp-2">{{ $post->content }}</p>
+                        <div class="mt-6 flex items-center gap-2">
+                            <a href="{{ route('page.post.edit', $post->id) }}"
+                                class="flex items-center text-[#747474] bg-[#D9D9D9] py-1 px-4 rounded-full cursor-pointer hover:bg-primary hover:text-white">
+                                <i class="bi bi-pencil-fill mr-3"></i>
+                                Edit
+                            </a>
+                            <a href="#" onclick="confirmDelete('{{ $post->id }}')"
+                                class="flex items-center text-[#747474] border border-[#D9D9D9] py-1 px-4 rounded-full cursor-pointer hover:border-red-500 hover:text-red-500">
+                                <i class="bi bi-x-lg mr-3"></i>
+                                Hapus
+                            </a>
+                        </div>
                     </div>
-                </div>
-            @endforeach
-        </div>
+                @endforeach
+            </div>
+        @endif
         <div class="mt-10 flex items-center justify-between">
             <div class="flex items-center gap-3">
                 <p>Show</p>
@@ -66,6 +72,7 @@
 @section('script')
     <script>
         const loading = document.getElementById('loading');
+
         function confirmDelete(id) {
             Swal.fire({
                 title: 'Hold Up!',
