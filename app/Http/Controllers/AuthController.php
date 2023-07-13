@@ -92,30 +92,30 @@ class AuthController extends Controller
 
                 Auth::login($finduser);
 
-                return redirect()->intended('dashboard');
+                return redirect()->route('page.dashboard');
             } else {
-                DB::transaction(function () use (&$user) {
-                    $newUser = User::updateOrCreate([
-                        'email' => $user->email
-                    ], [
-                        'name' => $user->name,
-                        'google_id' => $user->id,
-                        'username' => $user->email,
-                        'password' => encrypt('SyuliTSyeKaliPaswordnya8217**')
-                    ]);
+                $newUser = User::updateOrCreate([
+                    'email' => $user->email
+                ], [
+                    'name' => $user->name,
+                    'google_id' => $user->id,
+                    'username' => $user->email,
+                    'password' => encrypt('SyuliTSyeKaliPaswordnya8217**')
+                ]);
 
-                    $newUser->page()->create([
-                        'category_id' => null,
-                        'unit_id' => 1,
-                    ]);
+                $newUser->page()->create([
+                    'category_id' => null,
+                    'unit_id' => 1,
+                ]);
 
-                    $newUser->page->balance()->create([
-                        'balance' => 0,
-                    ]);
+                $newUser->page->balance()->create([
+                    'balance' => 0,
+                ]);
 
-                    Auth::login($newUser);
-                    return redirect()->route('page.dashboard');
-                });
+                $newUser->addMedia($user->avatar)->toMediaCollection('avatar');
+
+                Auth::login($newUser);
+                return redirect()->route('page.dashboard');
             }
         } catch (Exception $e) {
             dd($e->getMessage());
