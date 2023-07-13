@@ -16,7 +16,7 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelete('cascade')->onUpdate('cascade');
             $table->string('title');
             $table->longText('content');
-            $table->enum('status', ['published', 'private'])->default('private');
+            $table->enum('status', ['public', 'private'])->default('private');
             $table->timestamps();
         });
     }

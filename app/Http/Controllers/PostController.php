@@ -24,12 +24,13 @@ class PostController extends Controller
 
     public function store(Request $request)
     {
+        // dd($request->all());
         $validator = Validator::make($request->all(), [
             'title' => 'required|min:5|string',
             'content' => 'required|min:10',
             'privacy' => 'required|in:public,private',
-            'images' => 'required|array',
-            'images.*' => 'image|mimes:jpg,jpeg,png|max:2048',
+            'images' => 'sometimes|array',
+            'images.*' => 'sometimes|image|mimes:jpg,jpeg,png|max:2048',
         ]);
 
         if ($validator->fails()) {
@@ -45,11 +46,13 @@ class PostController extends Controller
         $post = $user->posts()->create([
             'title' => $request->title,
             'content' => $request->content,
-            'privacy' => $request->privacy,
+            'status' => $request->privacy,
         ]);
 
-        foreach ($request->images as $image) {
-            $post->addMedia($image)->toMediaCollection('images');
+        if ($request->has('images')) {
+            foreach ($request->images as $image) {
+                $post->addMedia($image)->toMediaCollection('images');
+            }
         }
 
         return response()->json([

@@ -55,7 +55,11 @@ class CreatorController extends Controller
 
         $unit = $page->unit()->first();
 
-        $posts = $user->posts()->orderBy('created_at', 'desc')->with('media')->get();
+        $posts = $user->posts()
+            ->where('status', 'public')
+            ->orderBy('created_at', 'desc')
+            ->with('media')
+            ->get();
 
         return view('creator-post', compact('page', 'medsos', 'avatar', 'header', 'unit', 'posts'));
     }

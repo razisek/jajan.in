@@ -116,8 +116,8 @@
                     Tidak ada Post
                 </div>
             @else
-                @foreach ($posts as $post)
-                    <div class="bg-white w-8/12 p-4 rounded-sm">
+                @foreach ($posts as $key => $post)
+                    <div class="bg-white w-8/12 p-4 rounded-sm mt-4">
                         <p class="text-2xl font-medium">{{ $post->title }}</p>
                         <p class="text-[#ADADAD] text-sm">{{ $post->created_at->diffForHumans() }}</p>
                         @if ($post->media->count() != 0)
@@ -127,10 +127,10 @@
                                 @endforeach
                             </div>
                         @endif
-                        <p class="mt-8 line-clamp-5 leading-relaxed " id="content">
+                        <p class="mt-8 line-clamp-5 leading-relaxed " id="content{{ ++$key }}">
                             {{ $post->content }}
                         </p>
-                        <button id="show"
+                        <button id="show{{ $key }}"
                             class="text-primary border hidden border-primary rounded-full px-2 text-sm mt-2 focus:outline-none">Show
                             More</button>
                         <div class="mt-6 text-xl flex items-center gap-6">
@@ -573,16 +573,18 @@
                 });
         });
 
-        const content = $('#content');
-        const contentHeight = content.height();
-        const buttonShow = $('#show');
-        if (contentHeight >= 130) {
-            buttonShow.removeClass('hidden');
-        }
-        $('#show').click(function() {
-            content.removeClass('line-clamp-5');
-            buttonShow.addClass('hidden');
-        });
+        @foreach ($posts as $key => $post)
+            const content{{ ++$key }} = $('#content{{ $key }}');
+            const contentHeight{{ $key }} = content{{ $key }}.height();
+            const buttonShow{{ $key }} = $('#show{{ $key }}');
+            if (contentHeight{{ $key }} >= 120) {
+                buttonShow{{ $key }}.removeClass('hidden');
+            }
+            $('#show{{ $key }}').click(function() {
+                content{{ $key }}.removeClass('line-clamp-5');
+                buttonShow{{ $key }}.addClass('hidden');
+            });
+        @endforeach
     </script>
 
 </body>

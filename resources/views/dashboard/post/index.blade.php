@@ -27,8 +27,10 @@
                     <div class="p-6 bg-white border border-gray-200 rounded-lg shadow mt-8 max-w-sm">
                         <p class="font-semibold text-lg">{{ $post->title }}</p>
                         <p class="text-[#BCBCBC] text-[12px] mt-2">{{ $post->created_at->diffForHumans() }}</p>
-                        <img src="{{ $post->media[0]->original_url }}" alt="post"
-                            class="mt-2 rounded-lg h-44 w-screen max-h-44 object-cover">
+                        @if ($post->media->count() != 0)
+                            <img src="{{ $post->media[0]->original_url }}" alt="post"
+                                class="mt-2 rounded-lg h-44 w-screen max-h-44 object-cover">
+                        @endif
                         <p class="mt-2 text-[14px] line-clamp-2">{{ $post->content }}</p>
                         <div class="mt-6 flex items-center gap-2">
                             <a href="{{ route('page.post.edit', $post->id) }}"
