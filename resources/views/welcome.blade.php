@@ -59,7 +59,7 @@
         </div>
         <div class="cta_right">
             <img class="cta_img px-20"
-                src="https://res.cloudinary.com/dgmwbkto1/image/upload/v1687538918/cta_img_main_fkqw02.png"
+                src="https://res.cloudinary.com/dgmwbkto1/image/upload/v1689240467/cta_img_main_dljxns.png"
                 alt="">
         </div>
     </div>
