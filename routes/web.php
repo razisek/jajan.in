@@ -72,3 +72,4 @@ Route::get('checkout/{transaction}', [PaymentController::class, 'checkout'])->na
 Route::get('payment-status/{transaction}', [PaymentController::class, 'paymentStatus'])->name('page.payment-status');
 
 Route::get('/{username}', [CreatorController::class, 'index'])->name('page.creator');
+Route::get('/{username}/post', [CreatorController::class, 'post'])->name('page.creator.post');

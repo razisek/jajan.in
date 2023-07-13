@@ -99,43 +99,44 @@
 
     <div class="flex justify-center">
         <div class="w-4/5 py-4 max-w-screen-xl flex items-center gap-2 text-lg text-[#818181] font-semibold">
-            <a href="{{ route('page.creator', $page->user->username) }}" class="border py-2 px-4 rounded-lg cursor-pointer text-primary border-primary bg-primaryLight">Home</a>
-            <a href="{{ route('page.creator.post', $page->user->username) }}" class="border border-[#818181] py-2 px-4 rounded-lg cursor-pointer">Post &nbsp;<span
-                    class="bg-primary text-white py-2 px-3 rounded-full">{{ $posts->count() }}</span></a>
+            <a href="{{ route('page.creator', $page->user->username) }}"
+                class="border border-[#818181] py-2 px-4 rounded-lg cursor-pointer">Home</a>
+            <a href="{{ route('page.creator.post', $page->user->username) }}"
+                class="border py-2 px-4 rounded-lg cursor-pointer text-primary border-primary bg-primaryLight">Post
+                &nbsp;<span class="bg-primary text-white py-2 px-3 rounded-full">{{ $posts->count() }}</span></a>
             <a href="#" class="border border-[#818181] py-2 px-4 rounded-lg cursor-pointer">Reward &nbsp;<span
                     class="bg-primary text-white py-2 px-3 rounded-full">0</span></a>
         </div>
     </div>
 
     <div class="flex justify-center mt-2">
-        <div class="w-4/5 p-8 max-w-screen-xl bg-[#E4DCF4] rounded-3xl">
-            @if ($transactions->count() == 0)
+        <div class="w-4/5 p-8 max-w-screen-xl bg-[#E4DCF4] rounded-3xl flex flex-col items-center border">
+            @if ($posts->count() == 0)
                 <div class="text-center">
-                    Tidak ada aktivitas
+                    Tidak ada Post
                 </div>
             @else
-                @foreach ($transactions as $trans)
-                    <div class="flex gap-3 mt-4">
-                        @if ($trans->is_anonymous)
-                            <img src="https://res.cloudinary.com/dgmwbkto1/image/upload/v1689228392/default_wju6xf.png"
-                                alt="avatar" class="object-cover w-16 h-16 rounded-full">
-                        @else
-                            <img src="{{ $trans->user->getFirstMediaUrl('avatar') != '' ? $trans->user->getFirstMediaUrl('avatar') : 'https://res.cloudinary.com/dgmwbkto1/image/upload/v1689228392/default_wju6xf.png' }}"
-                                alt="avatar" class="object-cover w-16 h-16 rounded-full">
+                @foreach ($posts as $post)
+                    <div class="bg-white w-8/12 p-4 rounded-sm">
+                        <p class="text-2xl font-medium">{{ $post->title }}</p>
+                        <p class="text-[#ADADAD] text-sm">{{ $post->created_at->diffForHumans() }}</p>
+                        @if ($post->media->count() != 0)
+                            <div class="grid gap-3 max-w-sm m-auto mt-4">
+                                @foreach ($post->media as $image)
+                                    <img src="{{ $image->original_url }}" alt="post image" class="w-full h-auto">
+                                @endforeach
+                            </div>
                         @endif
-                        <div>
-                            <p class="text-[#6D6D6D] text-lg"><span
-                                    class="font-semibold text-black">{{ $trans->is_anonymous ? 'Seseorang' : $trans->name }}</span>
-                                mentraktir <span class="text-primary font-semibold">{{ $trans->quantity }}
-                                    {{ $trans->unit->name }}</span> pada <span
-                                    class="text-black">{{ $trans->page->user->name }}</span></p>
-                            <p class="text-[#6D6D6D]">{{ $trans->created_at->diffForHumans() }}</p>
-                            @if ($trans->message)
-                                <div
-                                    class="relative border-2 border-primary bg-white rounded-2xl py-1 px-2 mt-4 after:absolute after:top-0 after:left-8 after:w-0 after:h-0 after:border-[15px] after:border-solid after:border-transparent after:border-b-primary after:border-t-0 after:border-l-0 after:-ml-2 after:-mt-4">
-                                    {{ $trans->message }}
-                                </div>
-                            @endif
+                        <p class="mt-8 line-clamp-5 leading-relaxed " id="content">
+                            {{ $post->content }}
+                        </p>
+                        <button id="show"
+                            class="text-primary border hidden border-primary rounded-full px-2 text-sm mt-2 focus:outline-none">Show
+                            More</button>
+                        <div class="mt-6 text-xl flex items-center gap-6">
+                            <p><i class="bi bi-heart cursor-pointer"></i> 0</p>
+                            <p><i class="bi bi-chat-left cursor-pointer"></i> 0</p>
+                            <i class="bi bi-share-fill cursor-pointer"></i>
                         </div>
                     </div>
                 @endforeach
@@ -570,6 +571,17 @@
                         window.location.href = data.redirect_url;
                     }
                 });
+        });
+
+        const content = $('#content');
+        const contentHeight = content.height();
+        const buttonShow = $('#show');
+        if (contentHeight >= 130) {
+            buttonShow.removeClass('hidden');
+        }
+        $('#show').click(function() {
+            content.removeClass('line-clamp-5');
+            buttonShow.addClass('hidden');
         });
     </script>
 
