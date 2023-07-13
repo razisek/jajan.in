@@ -112,7 +112,7 @@ class AuthController extends Controller
                     'balance' => 0,
                 ]);
 
-                $newUser->addMedia($user->avatar)->toMediaCollection('avatar');
+                $newUser->addMediaFromUrl($user->avatar)->toMediaCollection('avatar');
 
                 Auth::login($newUser);
                 return redirect()->route('page.dashboard');
