@@ -99,7 +99,7 @@ class AuthController extends Controller
                 ], [
                     'name' => $user->name,
                     'google_id' => $user->id,
-                    'username' => $user->email,
+                    'username' => explode('@', $user->email)[0],
                     'password' => encrypt('SyuliTSyeKaliPaswordnya8217**')
                 ]);
 
