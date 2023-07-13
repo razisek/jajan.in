@@ -17,12 +17,12 @@
             <img src="https://res.cloudinary.com/dgmwbkto1/image/upload/v1687234627/logo_tddyns.png" alt="logo jajanin"
                 class="w-52 mb-4">
             <p class="text-2xl mb-4 font-extrabold">Daftar gratis untuk Jajanin idola kamu</p>
-            <div
+            <a href="{{ route('auth.google') }}"
                 class="flex justify-start items-center border-2 border-black px-8 py-3 w-3/6 rounded-full cursor-pointer text-sm">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2008px-Google_%22G%22_Logo.svg.png"
                     alt="google image" class="w-4">
                 <p class="flex-1 text-center">Continue With Google</p>
-            </div>
+            </a>
             <div
                 class="flex justify-start items-center border-2 border-black px-8 py-3 w-3/6 rounded-full cursor-pointer text-sm mt-5">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/2048px-Facebook_f_logo_%282019%29.svg.png"

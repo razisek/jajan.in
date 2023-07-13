@@ -35,12 +35,12 @@
     <div class="h-screen w-full bg-primary grid place-items-center">
         <div class="bg-white p-8 rounded-xl w-2/6 flex justify-center flex-col items-center">
             <p class="text-3xl font-bold mb-6">Masuk</p>
-            <div
+            <a href="{{ route('auth.google') }}"
                 class="flex justify-start items-center border-2 border-black px-8 py-3 w-4/5 rounded-full cursor-pointer text-sm">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2008px-Google_%22G%22_Logo.svg.png"
                     alt="google image" class="w-4">
                 <p class="flex-1 text-center">Continue With Google</p>
-            </div>
+            </a>
             <div
                 class="flex justify-start items-center border-2 border-black px-8 py-3 w-4/5 rounded-full cursor-pointer text-sm mt-5">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/2048px-Facebook_f_logo_%282019%29.svg.png"
@@ -49,18 +49,21 @@
             </div>
             <hr class="w-4/5 h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
             @if ($errors->any())
-                {!! implode('', $errors->all('<div class="w-4/5 flex p-4 mb-4 text-red-800 rounded-lg bg-red-200" role="alert">
-                    <svg aria-hidden="true" class="flex-shrink-0 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
-                        xmlns="http://www.w3.org/2000/svg">
-                        <path fill-rule="evenodd"
-                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-                            clip-rule="evenodd"></path>
-                    </svg>
-                    <span class="sr-only">Info</span>
-                    <div class="ml-3 text-sm font-medium">
-                        :message
-                    </div>
-                </div>')) !!}
+                {!! implode(
+                    '',
+                    $errors->all('<div class="w-4/5 flex p-4 mb-4 text-red-800 rounded-lg bg-red-200" role="alert">
+                                    <svg aria-hidden="true" class="flex-shrink-0 w-5 h-5" fill="currentColor" viewBox="0 0 20 20"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path fill-rule="evenodd"
+                                            d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                                            clip-rule="evenodd"></path>
+                                    </svg>
+                                    <span class="sr-only">Info</span>
+                                    <div class="ml-3 text-sm font-medium">
+                                        :message
+                                    </div>
+                                </div>'),
+                ) !!}
             @endif
             @if (session('success'))
                 <div class="w-4/5 flex p-4 mb-4 text-red-800 rounded-lg bg-red-200" role="alert">
@@ -91,7 +94,8 @@
                             <i class="bi bi-eye"></i>
                         </div>
                         <input type="password" id="password" name="password"
-                            class="block w-full p-2 text-gray-900 border border-gray-600 rounded-lg focus:ring-primary focus:border-primary" required>
+                            class="block w-full p-2 text-gray-900 border border-gray-600 rounded-lg focus:ring-primary focus:border-primary"
+                            required>
                     </div>
                 </div>
                 <label class="relative inline-flex items-center cursor-pointer w-4/5 text-sm">
