@@ -41,12 +41,12 @@
                     alt="google image" class="w-4">
                 <p class="flex-1 text-center">Continue With Google</p>
             </a>
-            <div
+            {{-- <div
                 class="flex justify-start items-center border-2 border-black px-8 py-3 w-4/5 rounded-full cursor-pointer text-sm mt-5">
                 <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Facebook_f_logo_%282019%29.svg/2048px-Facebook_f_logo_%282019%29.svg.png"
                     alt="google image" class="w-4">
                 <p class="flex-1 text-center">Continue With Facebook</p>
-            </div>
+            </div> --}}
             <hr class="w-4/5 h-px my-8 bg-gray-200 border-0 dark:bg-gray-700">
             @if ($errors->any())
                 {!! implode(
