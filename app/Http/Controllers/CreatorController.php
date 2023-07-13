@@ -26,6 +26,11 @@ class CreatorController extends Controller
 
         $unit = $page->unit()->first();
 
-        return view('creator', compact('page', 'medsos', 'avatar', 'header', 'unit'));
+        $transactions = $page->transactions()
+            ->where('payment_status', 'paid')
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        return view('creator', compact('page', 'medsos', 'avatar', 'header', 'unit', 'transactions'));
     }
 }

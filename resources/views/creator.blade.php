@@ -65,6 +65,21 @@
         <p class="text-lg max-w-3xl m-auto">{{ $page->about ?? '-' }}</p>
     </div>
 
+    {{-- goal --}}
+    <div class="flex mt-8 justify-center">
+        <div class="max-w-screen-xl w-4/5 bg-primary rounded-3xl p-6 text-white">
+            <p class="font-bold text-2xl">Beli Pedang Baru</p>
+            <p class="text-xl mt-4"><span class="font-bold">Rp 450.000</span> terkumpul dari Rp 1.000.000 </p>
+            <div class="w-full bg-primary border-[4px] border-white rounded-full h-8 mt-2">
+                <div class="bg-secondary h-6 rounded-full" style="width: 45%"></div>
+            </div>
+            <p class="text-xl text-center mt-2"><span class="font-bold">45%</span> tercapai</p>
+            <a id="open-donate" class="flex justify-center mt-4">
+                <button
+                    class="border-2 border-white text-base py-2 px-8 rounded-full hover:bg-white hover:text-primary font-medium">Support</button>
+            </a>
+        </div>
+    </div>
 
     <!-- social media -->
     <div class="flex justify-center mt-8">
@@ -83,134 +98,50 @@
     </div>
 
     <div class="flex justify-center">
-        <div class="max-w-screen-xl w-4/5 flex justify-between items-center gap-11">
-            <div class="bg-primary w-1/2 rounded-3xl mx-4 p-8">
-                <div class="flex items-center gap-3 text-white font-bold text-2xl">
-                    <i class="bi bi-people-fill"></i>
-                    <h1>Followers</h1>
-                </div>
-                <h1 class="mt-4 text-white text-[36px] font-extrabold">2.3K</h1>
-            </div>
-            <div class="bg-primary w-1/2 rounded-3xl mx-4 p-8">
-                <div class="flex items-center justify-between gap-3 text-white font-bold text-2xl">
-                    <div class="flex items-center gap-3">
-                        <i class="bi bi-gift"></i>
-                        <h1>Rewards</h1>
-                    </div>
-                    <a href="#view">
-                        <button class="border-2 border-white text-base py-px px-6 rounded-full">View</button>
-                    </a>
-                </div>
-                <h1 class="mt-4 text-white text-[36px] font-extrabold">37</h1>
-            </div>
+        <div class="w-4/5 py-4 max-w-screen-xl flex items-center gap-2 text-lg text-[#818181] font-semibold">
+            <p class="border py-2 px-4 rounded-lg cursor-pointer text-primary border-primary bg-primaryLight">Home</p>
+            <p class="border border-[#818181] py-2 px-4 rounded-lg cursor-pointer">Post &nbsp;<span
+                    class="bg-primary text-white py-2 px-3 rounded-full">0</span></p>
+            <p class="border border-[#818181] py-2 px-4 rounded-lg cursor-pointer">Reward &nbsp;<span
+                    class="bg-primary text-white py-2 px-3 rounded-full">0</span></p>
         </div>
     </div>
 
-    <div class="flex mt-8 justify-center">
-        <div class="max-w-screen-xl w-4/5 bg-primary rounded-3xl p-6 text-white">
-            <p class="font-bold text-2xl">Beli Pedang Baru</p>
-            <p class="text-xl mt-4"><span class="font-bold">Rp 450.000</span> terkumpul dari Rp 1.000.000 </p>
-            <div class="w-full bg-primary border-[4px] border-white rounded-full h-8 mt-2">
-                <div class="bg-secondary h-6 rounded-full" style="width: 45%"></div>
-            </div>
-            <p class="text-xl text-center mt-2"><span class="font-bold">45%</span> tercapai</p>
-            <a id="open-donate" class="flex justify-center mt-4">
-                <button
-                    class="border-2 border-white text-base py-2 px-8 rounded-full hover:bg-white hover:text-primary font-medium">Support</button>
-            </a>
+    <div class="flex justify-center mt-2">
+        <div class="w-4/5 p-8 max-w-screen-xl bg-[#E4DCF4] rounded-3xl">
+            @if ($transactions->count() == 0)
+                <div class="text-center">
+                    Tidak ada aktivitas
+                </div>
+            @else
+                @foreach ($transactions as $trans)
+                    <div class="flex gap-3 mt-4">
+                        @if ($trans->is_anonymous)
+                            <img src="https://res.cloudinary.com/dgmwbkto1/image/upload/v1689228392/default_wju6xf.png"
+                                alt="avatar" class="object-cover w-16 h-16 rounded-full">
+                        @else
+                            <img src="{{ $trans->user->getFirstMediaUrl('avatar') != '' ? $trans->user->getFirstMediaUrl('avatar') : 'https://res.cloudinary.com/dgmwbkto1/image/upload/v1689228392/default_wju6xf.png' }}"
+                                alt="avatar" class="object-cover w-16 h-16 rounded-full">
+                        @endif
+                        <div>
+                            <p class="text-[#6D6D6D] text-lg"><span
+                                    class="font-semibold text-black">{{ $trans->is_anonymous ? 'Seseorang' : $trans->name }}</span>
+                                mentraktir <span class="text-primary font-semibold">{{ $trans->quantity }}
+                                    {{ $trans->unit->name }}</span> pada <span
+                                    class="text-black">{{ $trans->page->user->name }}</span></p>
+                            <p class="text-[#6D6D6D]">{{ $trans->created_at->diffForHumans() }}</p>
+                            @if ($trans->message)
+                                <div
+                                    class="relative border-2 border-primary bg-white rounded-2xl py-1 px-2 mt-4 after:absolute after:top-0 after:left-8 after:w-0 after:h-0 after:border-[15px] after:border-solid after:border-transparent after:border-b-primary after:border-t-0 after:border-l-0 after:-ml-2 after:-mt-4">
+                                    {{ $trans->message }}
+                                </div>
+                            @endif
+                        </div>
+                    </div>
+                @endforeach
+            @endif
         </div>
     </div>
-
-    <!-- Profil comenter -->
-    <div class="com_card" style="margin-top: 20px">
-        <div class="com_row">
-            <div class="flex">
-                <img class="img_com"
-                    src="http://localhost:8000/storage/users/1/avatar/21/120047969_418348109130251_6041324800208866272_n.jpg"
-                    alt="">
-                <div class="right_com_col">
-                    <div class="com_res">
-                        <h1 class="com_name">Anggie Nugroho</h1>
-                        <h1 class="com_treat">mentraktir</h1>
-                        <h1 class="com_donate">25 Tembaga Murni</h1>
-                        <h1 class="com_role">pada Astra Black Bull </h1>
-                    </div>
-                    <p class="lates_com">2 hari yang lalu</p>
-                    <div class="com_chat">
-                        <p>bang ini Tembaga Murninya nya hehe</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="com_row">
-            <div class="flex">
-                <img class="img_com"
-                    src="http://localhost:8000/storage/users/1/avatar/21/120047969_418348109130251_6041324800208866272_n.jpg"
-                    alt="">
-                <div class="right_com_col">
-                    <div class="com_res">
-                        <h1 class="com_name">Seseorang</h1>
-                        <h1 class="com_treat">mentraktir</h1>
-                        <h1 class="com_donate">10 Tembaga Murni</h1>
-                        <h1 class="com_role">pada Astra Black Bull </h1>
-                    </div>
-                    <p class="lates_com">6 hari yang lalu</p>
-                </div>
-            </div>
-        </div>
-        <div class="com_row">
-            <div class="flex">
-                <img class="img_com"
-                    src="http://localhost:8000/storage/users/1/avatar/21/120047969_418348109130251_6041324800208866272_n.jpg"
-                    alt="">
-                <div class="right_com_col">
-                    <div class="com_res">
-                        <h1 class="com_name">Lah</h1>
-                        <h1 class="com_treat">mentraktir</h1>
-                        <h1 class="com_donate">100 Tembaga Murni</h1>
-                        <h1 class="com_role">pada Astra Black Bull </h1>
-                    </div>
-                    <p class="lates_com">2 Minggu yang lalu</p>
-                    <div class="com_chat">
-                        <p>bang ini Tembaga Murninya nya hehe</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="com_row">
-            <div class="flex">
-                <img class="img_com"
-                    src="http://localhost:8000/storage/users/1/avatar/21/120047969_418348109130251_6041324800208866272_n.jpg"
-                    alt="">
-                <div class="right_com_col">
-                    <div class="com_res">
-                        <h1 class="com_name">ilhamjii</h1>
-                        <h1 class="com_treat">mentraktir</h1>
-                        <h1 class="com_donate">5 Tembaga Murni</h1>
-                        <h1 class="com_role">pada Astra Black Bull </h1>
-                    </div>
-                    <p class="lates_com">2 Minggu yang lalu</p>
-                </div>
-            </div>
-        </div>
-        <div class="com_row">
-            <div class="flex">
-                <img class="img_com"
-                    src="http://localhost:8000/storage/users/1/avatar/21/120047969_418348109130251_6041324800208866272_n.jpg"
-                    alt="">
-                <div class="right_com_col">
-                    <div class="com_res">
-                        <h1 class="com_name">ltz_Ryhanch</h1>
-                        <h1 class="com_treat">mentraktir</h1>
-                        <h1 class="com_donate">25 Tembaga Murni</h1>
-                        <h1 class="com_role">pada Astra Black Bull </h1>
-                    </div>
-                    <p class="lates_com">1 Bulan yang lalu</p>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <div class="footer mt-8">
         <footer class="">
             <div
