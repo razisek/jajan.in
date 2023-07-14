@@ -100,7 +100,7 @@
                                 <a href="#" class="block py-2 px-4">Open as Supporter</a>
                             </li> --}}
                             <li onclick="confirmLogout()"
-                                class="flex items-center pl-4 rounded-full hover:bg-primaryLight hover:text-primary {{ Route::is('page.support.user') || Route::is('page.support.anonim') ? 'bg-primaryLight text-primary' : '' }}">
+                                class="flex items-center pl-4 rounded-full hover:bg-primaryLight hover:text-primary">
                                 <i class="bi bi-box-arrow-right"></i>
                                 <a href="#" class="block py-2 px-4">Logout</a>
                             </li>
