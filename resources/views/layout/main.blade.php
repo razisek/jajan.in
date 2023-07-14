@@ -27,7 +27,8 @@
                     </a>
                     <div class="flex items-center divide-x-2 divide-gray-300" id="navbar-default">
                         <div class="relative pr-8">
-                            <a href="{{ route('page.explore') }}" class="flex items-center gap-2 text-primary font-medium">
+                            <a href="{{ route('page.explore') }}"
+                                class="flex items-center gap-2 text-primary font-medium">
                                 <i class="bi bi-search"></i>
                                 Explore Creator
                             </a>
@@ -80,12 +81,12 @@
                                 <i class="bi bi-people"></i>
                                 <a href="{{ route('page.support.user') }}" class="block py-2 px-4">My Supporters</a>
                             </li>
-                            <li class="flex items-center pl-4 rounded-full hover:bg-primaryLight hover:text-primary">
+                            {{-- <li class="flex items-center pl-4 rounded-full hover:bg-primaryLight hover:text-primary">
                                 <i class="bi bi-people"></i>
                                 <a href="#" class="block py-2 px-4">My Followers</a>
-                            </li>
+                            </li> --}}
                             <hr class="w-4/5 h-px my-8 bg-[#E9E8E8] border-0">
-                            <li class="flex items-center pl-4 rounded-full hover:bg-primaryLight hover:text-primary">
+                            {{-- <li class="flex items-center pl-4 rounded-full hover:bg-primaryLight hover:text-primary">
                                 <i class="bi bi-person"></i>
                                 <a href="#" class="block py-2 px-4">My Account</a>
                             </li>
@@ -97,6 +98,11 @@
                             <li class="flex items-center pl-4 rounded-full hover:bg-primaryLight hover:text-primary">
                                 <i class="bi bi-arrow-repeat rotate-90"></i>
                                 <a href="#" class="block py-2 px-4">Open as Supporter</a>
+                            </li> --}}
+                            <li onclick="confirmLogout()"
+                                class="flex items-center pl-4 rounded-full hover:bg-primaryLight hover:text-primary {{ Route::is('page.support.user') || Route::is('page.support.anonim') ? 'bg-primaryLight text-primary' : '' }}">
+                                <i class="bi bi-box-arrow-right"></i>
+                                <a href="#" class="block py-2 px-4">Logout</a>
                             </li>
                         </ul>
                     </nav>
@@ -111,6 +117,24 @@
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://code.jquery.com/jquery-3.7.0.min.js"
         integrity="sha256-2Pmvv0kuTBOenSvLm6bvfBSSHrUJ+3A7x6P5Ebd07/g=" crossorigin="anonymous"></script>
+    <script>
+        function confirmLogout() {
+            Swal.fire({
+                title: 'Hold Up!',
+                text: "Are you sure you want to logout?",
+                type: 'warning',
+                icon: 'warning',
+                showCancelButton: true,
+                cancelButtonColor: '#d33',
+                confirmButtonColor: '#435EBE',
+                confirmButtonText: 'Yes!'
+            }).then((result) => {
+                if (result.value) {
+                    window.location.href = "{{ route('logout') }}";
+                }
+            });
+        }
+    </script>
     @yield('script')
 </body>
 

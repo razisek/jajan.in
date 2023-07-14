@@ -121,4 +121,12 @@ class AuthController extends Controller
             dd($e->getMessage());
         }
     }
+
+    public function logout(Request $request)
+    {
+        auth()->guard('web')->logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect()->route('page.login');
+    }
 }

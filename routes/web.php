@@ -36,6 +36,9 @@ Route::get('/auth/google/callback', [AuthController::class, 'handleGoogleCallbac
 Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('dashboard', [DashboardController::class, 'index'])->name('page.dashboard');
 
+    // logout
+    Route::get('logout', [AuthController::class, 'logout'])->name('logout');
+
     // post
     Route::get('post', [PostController::class, 'index'])->name('page.post.index');
     Route::get('post/create', [PostController::class, 'create'])->name('page.post.create');
