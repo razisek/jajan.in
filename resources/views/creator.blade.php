@@ -26,7 +26,8 @@
         </div>
         <div class="menu_navigation">
             <ul class="flex content-center">
-                <li><a class="nav_pad flex" href="{{ route('page.explore') }}"><i class="bi bi-search mr-3"></i>Explorer Creator</a>
+                <li><a class="nav_pad flex" href="{{ route('page.explore') }}"><i class="bi bi-search mr-3"></i>Explorer
+                        Creator</a>
                 </li>
                 <li>
                     <div class="menu_separator"></div>
@@ -74,7 +75,8 @@
                 <div class="bg-secondary h-6 rounded-full" style="width: 45%"></div>
             </div>
             <p class="text-xl text-center mt-2"><span class="font-bold">45%</span> tercapai</p>
-            <a id="open-donate" class="flex justify-center mt-4">
+            <a @if (Auth::check()) id="open-donate" @else href="{{ route('page.login') }}" @endif
+                class="flex justify-center mt-4">
                 <button
                     class="border-2 border-white text-base py-2 px-8 rounded-full hover:bg-white hover:text-primary font-medium">Support</button>
             </a>
@@ -99,8 +101,10 @@
 
     <div class="flex justify-center">
         <div class="w-4/5 py-4 max-w-screen-xl flex items-center gap-2 text-lg text-[#818181] font-semibold">
-            <a href="{{ route('page.creator', $page->user->username) }}" class="border py-2 px-4 rounded-lg cursor-pointer text-primary border-primary bg-primaryLight">Home</a>
-            <a href="{{ route('page.creator.post', $page->user->username) }}" class="border border-[#818181] py-2 px-4 rounded-lg cursor-pointer">Post &nbsp;<span
+            <a href="{{ route('page.creator', $page->user->username) }}"
+                class="border py-2 px-4 rounded-lg cursor-pointer text-primary border-primary bg-primaryLight">Home</a>
+            <a href="{{ route('page.creator.post', $page->user->username) }}"
+                class="border border-[#818181] py-2 px-4 rounded-lg cursor-pointer">Post &nbsp;<span
                     class="bg-primary text-white py-2 px-3 rounded-full">{{ $posts->count() }}</span></a>
             <a href="#" class="border border-[#818181] py-2 px-4 rounded-lg cursor-pointer">Reward &nbsp;<span
                     class="bg-primary text-white py-2 px-3 rounded-full">0</span></a>
