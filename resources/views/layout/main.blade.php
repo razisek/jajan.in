@@ -27,7 +27,7 @@
                     </a>
                     <div class="flex items-center divide-x-2 divide-gray-300" id="navbar-default">
                         <div class="relative pr-8">
-                            <a href="#" class="flex items-center gap-2 text-primary font-medium">
+                            <a href="{{ route('page.explore') }}" class="flex items-center gap-2 text-primary font-medium">
                                 <i class="bi bi-search"></i>
                                 Explore Creator
                             </a>

@@ -26,7 +26,7 @@
         </div>
         <div class="menu_navigation">
             <ul class="flex content-center">
-                <li><a class="nav_pad flex" href="#"><i class="bi bi-search mr-3"></i>Explorer Creator</a>
+                <li><a class="nav_pad flex" href="{{ route('page.explore') }}"><i class="bi bi-search mr-3"></i>Explorer Creator</a>
                 </li>
                 <li>
                     <div class="menu_separator"></div>

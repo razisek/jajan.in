@@ -74,5 +74,6 @@ Route::post('/payment/notification', [PaymentController::class, 'notification'])
 Route::get('checkout/{transaction}', [PaymentController::class, 'checkout'])->name('page.checkout');
 Route::get('payment-status/{transaction}', [PaymentController::class, 'paymentStatus'])->name('page.payment-status');
 
+Route::get('/explore', [CreatorController::class, 'explore'])->name('page.explore');
 Route::get('/{username}', [CreatorController::class, 'index'])->name('page.creator');
 Route::get('/{username}/post', [CreatorController::class, 'post'])->name('page.creator.post');

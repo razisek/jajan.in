@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Page;
 use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\Request;
 
 class CreatorController extends Controller
@@ -62,5 +64,14 @@ class CreatorController extends Controller
             ->get();
 
         return view('creator-post', compact('page', 'medsos', 'avatar', 'header', 'unit', 'posts'));
+    }
+
+    public function explore(Request $request)
+    {
+        $pages = Page::whereHas('user', function (Builder $query) use ($request) {
+            $query->where('name', 'like', '%' . $request->search . '%');
+        })->get();
+
+        return view('explore', compact('pages'));
     }
 }
