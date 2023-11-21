@@ -25,6 +25,10 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/test', function () {
+    return view('test');
+});
+
 Route::get('/login', [AuthController::class, 'indexLogin'])->name('page.login')->middleware('guest');
 Route::post('/login', [AuthController::class, 'login'])->name('login');
 Route::get('/register', [AuthController::class, 'indexRegister'])->name('page.register')->middleware('guest');
