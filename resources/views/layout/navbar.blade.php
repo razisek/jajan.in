@@ -43,7 +43,7 @@
                     class="p-2 text-gray-500 rounded-lg lg:hidden hover:text-gray-900 hover:bg-gray-100">
                 </button>
                 <button type="button" data-dropdown-toggle="notification-dropdown"
-                    class="p-2 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100">
+                    class="p-2 text-gray-500 rounded-lg hover:text-gray-900 hover:bg-gray-100 hidden">
                     <span class="sr-only">View notifications</span>
 
                     <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
@@ -107,7 +107,7 @@
                             id="user-menu-button-2" aria-expanded="false" data-dropdown-toggle="dropdown-2">
                             <span class="sr-only">Open user menu</span>
                             <img class="w-8 h-8 rounded-full"
-                                src="https://flowbite.com/docs/images/people/profile-picture-5.jpg" alt="user photo">
+                                src="{{ auth()->user()->getFirstMediaUrl('avatar') != ''? auth()->user()->getFirstMediaUrl('avatar'): 'https://ui-avatars.com/api/?background=random&name=' . auth()->user()->name }}" alt="user photo">
                         </button>
                     </div>
 
@@ -115,27 +115,19 @@
                         id="dropdown-2">
                         <div class="px-4 py-3" role="none">
                             <p class="text-sm text-gray-900" role="none">
-                                Neil Sims
+                                {{ Auth::user()->name }}
                             </p>
                             <p class="text-sm font-medium text-gray-900 truncate" role="none">
-                                neil.sims@flowbite.com
+                                {{ Auth::user()->email }}
                             </p>
                         </div>
                         <ul class="py-1" role="none">
                             <li>
                                 <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                    role="menuitem">Dashboard</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                     role="menuitem">Settings</a>
                             </li>
                             <li>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                    role="menuitem">Earnings</a>
-                            </li>
-                            <li>
-                                <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                <a href="#" onclick="confirmLogout()" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                     role="menuitem">Sign out</a>
                             </li>
                         </ul>
