@@ -2,7 +2,7 @@ name: Deploy Laravel App
 
 on:
   push:
-    branches: [ production ]
+    branches: [ main ]
 
 jobs:
   build:
@@ -14,11 +14,11 @@ jobs:
       with:
         host: ${{ secrets.HOST }}
         username: ${{ secrets.USERNAME }}
-        key: ${{ secrets.PRIVATE_KEY }}
+        password: ${{ secrets.PASSWORD }}
         port: ${{ secrets.PORT }}
         script: |
           cd /var/www/jajanin.app
-          git pull origin production
+          git pull
           git status
           composer install
           php artisan migrate:fresh --seed
