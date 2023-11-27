@@ -7,10 +7,48 @@
         <div class="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 text-white text-2xl">Please wait...
         </div>
     </div>
+    <nav class="flex mb-5" aria-label="Breadcrumb">
+        <ol class="inline-flex items-center space-x-1 text-sm font-medium md:space-x-2">
+            <li class="inline-flex items-center">
+                <a href="#"
+                    class="inline-flex items-center text-gray-700 hover:text-primary-600">
+                    <svg class="w-5 h-5 mr-2.5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
+                        <path
+                            d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z">
+                        </path>
+                    </svg>
+                    Home
+                </a>
+            </li>
+            <li>
+                <div class="flex items-center">
+                    <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    <a href="#"
+                        class="ml-1 text-gray-700 hover:text-primary-600 md:ml-2">User</a>
+                </div>
+            </li>
+            <li>
+                <div class="flex items-center">
+                    <svg class="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 20 20"
+                        xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                            d="M7.293 14.707a1 1 0 010-1.414L10.586 10 7.293 6.707a1 1 0 011.414-1.414l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414 0z"
+                            clip-rule="evenodd"></path>
+                    </svg>
+                    <span class="ml-1 text-gray-400 md:ml-2" aria-current="page">Page Setting</span>
+                </div>
+            </li>
+        </ol>
+    </nav>
     <div>
         <p class="font-semibold text-3xl mb-3">Edit Page Information</p>
         <div class="border-b border-gray-200">
-            <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500 dark:text-gray-400">
+            <ul class="flex flex-wrap -mb-px text-sm font-medium text-center text-gray-500">
                 <li class="mr-2">
                     <a href="{{ route('page.page.index') }}"
                         class="inline-flex p-4 border-b-2 rounded-t-lg group text-primary border-primary">
@@ -46,129 +84,161 @@
                 {!! \Session::get('success') !!}
             </div>
         @endif
-        <div class="p-6 bg-white border border-gray-200 rounded-lg shadow grid grid-cols-2">
-            <div>
-                <div>
-                    <p class="text-xs font-bold text-[#747474]">Profile Picture</p>
-                    <div class="mt-3 flex gap-4">
-                        <img src="{{ $avatar == '' ? 'https://media.istockphoto.com/id/1327592449/id/vektor/ikon-tempat-penampung-foto-avatar-default-gambar-profil-abu-abu-pebisnis.jpg?s=170667a&w=0&k=20&c=zPNFIk-DGCMcFNoYVt-WsaqkNEpJW8vIuOYtcU-MvaA=' : $avatar }}"
-                            alt="avatar" id="avatarPreview" class="w-24 h-24 rounded-full object-cover">
+
+        <div class="grid grid-cols-1 px-4 pt-3 xl:grid-cols-3 xl:gap-4">
+            <div class="col-span-full xl:col-auto">
+                <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2 sm:p-6">
+                    <div class="items-center sm:flex xl:block 2xl:flex sm:space-x-4 xl:space-x-0 2xl:space-x-4">
+                        <img class="mb-4 rounded-lg w-28 h-28 sm:mb-0 xl:mb-4 2xl:mb-0 object-cover"
+                            src="{{ $avatar == '' ? 'https://media.istockphoto.com/id/1327592449/id/vektor/ikon-tempat-penampung-foto-avatar-default-gambar-profil-abu-abu-pebisnis.jpg?s=170667a&w=0&k=20&c=zPNFIk-DGCMcFNoYVt-WsaqkNEpJW8vIuOYtcU-MvaA=' : $avatar }}"
+                            alt="Avatar" id="avatarPreview">
                         <div>
+                            <h3 class="mb-1 text-lg font-bold text-[#747474]">Profile picture</h3>
+                            <div class="mb-4 text-xs text-gray-500">
+                                JPG or PNG. Max size of 2MB.
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <label
+                                    class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 cursor-pointer">
+                                    <svg class="w-4 h-4 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20"
+                                        xmlns="http://www.w3.org/2000/svg">
+                                        <path
+                                            d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13H5.5z">
+                                        </path>
+                                        <path d="M9 13h2v5a1 1 0 11-2 0v-5z"></path>
+                                    </svg>
+                                    <input type="file" class="hidden" id="avatarInput" accept="image/*" name="avatar" />
+                                    Upload New picture
+                                </label>
+                                @if ($avatar != '')
+                                    <button type="button" onclick="confirmModalDeleteAvatar()"
+                                        class="py-2 px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200">
+                                        <i class="bi bi-x-lg mr-3"></i> Delete
+                                    </button>
+                                @endif
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mt-8">
+                        <p class="text-base font-bold text-[#747474]">Profile Header</p>
+                        <img src="{{ $header == '' ? 'https://placehold.co/900x225/EEE/31343C' : $header }}" alt="header"
+                            id="headerPreview" class="w-80 h-48 object-cover rounded-t-2xl mt-2">
+                        <p class="text-xs text-[#747474] font-light pt-2 pb-4">Header resolution : 900 x 225</p>
+                        <div class="flex items-center space-x-4">
                             <label
-                                class="flex gap-3 justify-center items-center px-6 py-1 font-bold text-primary border-primary transition-all duration-300 rounded-full shadow-lg tracking-wide border-2 cursor-pointer">
-                                <i class="bi bi-upload"></i>
-                                <p class="text-[12px]">Upload New Picture</p>
-                                <input type="file" class="hidden" id="avatarInput" accept="image/*" name="avatar" />
+                                class="inline-flex items-center px-3 py-2 text-sm font-medium text-center text-white rounded-lg bg-primary hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 cursor-pointer">
+                                <svg class="w-4 h-4 mr-2 -ml-1" fill="currentColor" viewBox="0 0 20 20"
+                                    xmlns="http://www.w3.org/2000/svg">
+                                    <path
+                                        d="M5.5 13a3.5 3.5 0 01-.369-6.98 4 4 0 117.753-1.977A4.5 4.5 0 1113.5 13H11V9.413l1.293 1.293a1 1 0 001.414-1.414l-3-3a1 1 0 00-1.414 0l-3 3a1 1 0 001.414 1.414L9 9.414V13H5.5z">
+                                    </path>
+                                    <path d="M9 13h2v5a1 1 0 11-2 0v-5z"></path>
+                                </svg>
+                                <input type="file" class="hidden" id="headerInput" accept="image/*" name="header" />
+                                Upload New picture
                             </label>
-                            @if ($avatar != '')
-                                <p onclick="confirmModalDeleteAvatar()"
-                                    class="border-2 text-center py-1 mt-3 rounded-full cursor-pointer hover:bg-[#E7E7E7] hover:border-[#A7A7A7]">
-                                    <i class="bi bi-x-lg mr-3"></i> Remove
-                                </p>
+                            @if ($header != '')
+                                <button type="button" onclick="confirmModalDeleteHeader()"
+                                    class="py-2 px-3 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200">
+                                    <i class="bi bi-x-lg mr-3"></i> Delete
+                                </button>
                             @endif
                         </div>
                     </div>
                 </div>
-                <div class="mt-8">
-                    <p class="text-xs font-bold text-[#747474]">Profile Header</p>
-                    <img src="{{ $header == '' ? 'https://placehold.co/900x225/EEE/31343C' : $header }}" alt="header"
-                        id="headerPreview" class="w-80 h-48 object-cover rounded-t-2xl mt-2">
-                    <p class="text-[10px] text-[#747474] font-light pt-2 pb-4">Header resolution : 900 x 225</p>
-                    <div class="flex items-center gap-3 w-3/5">
-                        <label
-                            class="flex w-2/3 gap-3 justify-center items-center px-6  font-bold text-primary border-primary transition-all duration-300 rounded-full shadow-lg tracking-wide border-2 cursor-pointer">
-                            <i class="bi bi-upload"></i>
-                            <p class="text-[12px]">Upload New Picture</p>
-                            <input type="file" class="hidden" id="headerInput" accept="image/*" name="header" />
-                        </label>
-                        @if ($header != '')
-                            <p onclick="confirmModalDeleteHeader()"
-                                class="border-2 w-1/3 text-center py-1 mt-3 rounded-full cursor-pointer hover:bg-[#E7E7E7] hover:border-[#A7A7A7]">
-                                <i class="bi bi-x-lg mr-3"></i> Remove
-                            </p>
-                        @endif
-                    </div>
-                </div>
-                <div class="mt-8">
-                    <p class="text-xs font-bold text-[#747474]">Social Media Links</p>
-                    <div id="open-sosmed"
-                        class="mt-4 mb-4 text-sm text-primary flex items-center gap-3 border-2 w-56 justify-center py-1 border-primary rounded-full shadow-lg cursor-pointer">
-                        <i class="bi bi-plus-circle-fill"></i>
-                        <p class="font-medium">Add Social Media Links</p>
-                    </div>
-                    @foreach ($medsos as $social)
-                        <div class="bg-[#E7E7E7] rounded-md w-4/6 flex items-center justify-between py-1 px-2 mt-2">
-                            <div class="flex items-center gap-2">
-                                <img src="{{ $social['icon'] }}" alt="icon-social" class="w-8 h-8 object-contain">
-                                <p class="text-sm text-[#747474]">{{ $social['link'] }}{{ $social['user'] }}</p>
-                            </div>
-                            <i class="bi bi-x-lg cursor-pointer" onclick="confirmModal('{{ $social['id'] }}')"></i>
+                <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2">
+                    <div class="flow-root">
+                        <h3 class="text-xl font-semibold">Social Media Link</h3>
+                        <ul class="divide-y divide-gray-200">
+                            @foreach ($medsos as $social)
+                                <li class="py-4">
+                                    <div class="flex items-center space-x-4">
+                                        <div class="flex-shrink-0">
+                                            {!! $social['icon'] !!}
+                                        </div>
+                                        <div class="flex-1 min-w-0">
+                                            <span class="block text-base font-semibold text-gray-900 truncate">
+                                                {{ $social['name'] }} account
+                                            </span>
+                                            <a href="{{ $social['link'] }}{{ $social['user'] }}" target="_blank"
+                                                class="block text-sm font-normal truncate text-blue hover:underline">
+                                                {{ $social['link'] }}{{ $social['user'] }}
+                                            </a>
+                                        </div>
+                                        <div class="inline-flex items-center">
+                                            <a onclick="confirmModal('{{ $social['id'] }}')"
+                                                class="px-3 py-2 mb-3 mr-3 text-sm font-medium text-center text-red bg-white border border-red rounded-lg hover:bg-gray-100 focus:ring-2 focus:ring-red cursor-pointer">Delete</a>
+                                        </div>
+                                    </div>
+                                </li>
+                            @endforeach
+                        </ul>
+                        <div class="flex justify-center w-full mt-4">
+                            <button id="open-sosmed"
+                                class="text-white bg-primary hover:bg-primary-800 focus:ring-4 focus:ring-primary-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center">
+                                <i class="bi bi-plus mr-3"></i>
+                                Add Social Media Link
+                            </button>
                         </div>
-                    @endforeach
-                </div>
-                <div class="mt-8">
-                    <p class="text-xs font-bold text-[#747474]">Active Goal</p>
-                    <div
-                        class="mt-4 text-sm text-primary flex items-center gap-3 border-2 w-44 justify-center py-1 border-primary rounded-full shadow-lg cursor-pointer">
-                        <i class="bi bi-plus-circle-fill"></i>
-                        <p class="font-medium">Add New Goal</p>
                     </div>
                 </div>
             </div>
-            <div>
-                <div class="mb-6 text-sm w-4/6">
-                    <label for="name" class="mb-2 inline-block text-xs font-bold text-[#747474] clear-both">Name</label>
-                    <input type="text" id="name" name="name" value="{{ $page->user->name }}"
-                        class="w-full p-2 text-gray-900 border-2 border-[#D9D9D9] rounded-lg focus:ring-primary focus:border-primary"
-                        autocomplete="off">
-                </div>
-                <div class="mb-6 text-sm w-4/6">
-                    <label for="name"
-                        class="mb-2 inline-block text-xs font-bold text-[#747474] clear-both">Username</label>
-                    <div class="flex">
-                        <span
-                            class="inline-flex items-center px-3 text-sm text-[#6D6D6D] bg-[#D9D9D9] border border-r-0 border-gray-300 rounded-l-md">
-                            @
-                        </span>
-                        <input type="text" id="username" name="username" value="{{ $page->user->username }}"
-                            class="w-full p-2 text-gray-900 border-2 border-[#D9D9D9] rounded-r-lg focus:ring-primary focus:border-primary"
-                            autocomplete="off">
+            <div class="col-span-2">
+                <div class="p-4 mb-4 bg-white border border-gray-200 rounded-lg shadow-sm 2xl:col-span-2sm:p-6">
+                    <div class="grid grid-cols-6 gap-6">
+                        <div class="col-span-6">
+                            <label for="name" class="block mb-2 text-sm font-medium text-gray-900">Name</label>
+                            <input type="text" name="name" id="name" value="{{ $page->user->name }}"
+                                class="shadow-sm bg-gray-50 border-2 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary focus:border-primary block w-full p-2.5 outline-none"
+                                placeholder="Dimas" required>
+                        </div>
+                        <div class="col-span-6">
+                            <label for="username" class="block mb-2 text-sm font-medium text-gray-900">Username</label>
+                            <div class="flex">
+                                <span
+                                    class="inline-flex items-center px-3 text-sm text-[#9CA3AF] bg-gray-200 border border-e-0 border-gray-300 rounded-s-md">
+                                    @
+                                </span>
+                                <input type="text" id="username" name="username"
+                                    value="{{ $page->user->username }}"
+                                    class="shadow-sm rounded-none rounded-e-lg bg-gray-50 border-2 border-gray-300 text-gray-900 focus:ring-primary focus:border-primary block flex-1 min-w-0 w-full sm:text-sm p-2.5 outline-none"
+                                    placeholder="jajanin" required>
+                            </div>
+                        </div>
+                        <div class="col-span-6">
+                            <label for="category" class="block mb-2 text-sm font-medium text-gray-900">Category</label>
+                            <select id="category" name="category"
+                                class="bg-gray-50 border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-primary border-2 focus:border-primary block w-full p-2.5 outline-none">
+                                <option disabled selected value="0">Choose a category</option>
+                                @foreach ($categories as $category)
+                                    <option value="{{ $category->id }}"
+                                        {{ $page->category_id == $category->id ? 'selected' : '' }}>
+                                        {{ $category->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="col-span-6">
+                            <label for="about" class="block mb-2 text-sm font-medium text-gray-900">About</label>
+                            <textarea id="about" rows="4"
+                                class="block p-2.5 w-full sm:text-sm text-gray-900 bg-gray-50 rounded-lg border-2 border-gray-300 focus:ring-primary focus:border-primary outline-none"
+                                placeholder="About You">{{ $page->about }}</textarea>
+                        </div>
+                        <div class="col-span-6">
+                            <label for="message" class="block mb-2 text-sm font-medium text-gray-900">Message for
+                                supporter</label>
+                            <textarea id="message" rows="4"
+                                class="block p-2.5 w-full sm:text-sm text-gray-900 bg-gray-50 rounded-lg border-2 border-gray-300 focus:ring-primary focus:border-primary outline-none"
+                                placeholder="Leave a message...">{{ $page->message }}</textarea>
+                        </div>
+                        <div class="col-span-6 sm:col-full">
+                            <button id="save-page"
+                                class="inline-flex items-center px-4 py-3 text-sm font-medium text-center text-white rounded-lg bg-secondary cursor-pointer">
+                                <i class="fa-solid fa-floppy-disk mr-3"></i>
+                                Save All
+                            </button>
+                        </div>
                     </div>
                 </div>
-                <div class="mb-6 text-sm w-4/6">
-                    <label for="category"
-                        class="mb-2 inline-block text-xs font-bold text-[#747474] clear-both">Category</label>
-                    <select id="category"
-                        class="border-2 border-[#D9D9D9] text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-priring-primary block w-full p-2.5">
-                        <option disabled selected value="0">Choose a category</option>
-                        @foreach ($categories as $category)
-                            <option value="{{ $category->id }}"
-                                {{ $page->category_id == $category->id ? 'selected' : '' }}>
-                                {{ $category->name }}</option>
-                        @endforeach
-                    </select>
-                </div>
-                <div class="mb-6 text-sm w-4/6">
-                    <label for="name"
-                        class="mb-2 inline-block text-xs font-bold text-[#747474] clear-both">About</label>
-                    <textarea id="about" rows="4"
-                        class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border-2 border-[#D9D9D9] focus:ring-primary focus:border-primring-primary"
-                        placeholder="About">{{ $page->about }}</textarea>
-                </div>
-                <div class="mb-6 text-sm w-4/6">
-                    <div class="flex items-center gap-2 mb-2 text-[#747474]">
-                        <i class="bi bi-envelope-fill"></i>
-                        <label for="name" class="text-xs font-bold">Pesan Untuk Supporter</label>
-                    </div>
-                    <textarea id="message" rows="3"
-                        class="block p-2.5 w-full text-sm text-gray-900 rounded-lg border-2 border-[#D9D9D9] focus:ring-primary focus:border-primring-primary"
-                        placeholder="Pesan untuk supporter yang mau jajanin">{{ $page->message }}</textarea>
-                </div>
-                <button id="save-page"
-                    class="w-44 bg-secondary text-white py-4 rounded-full shadow-lg mt-6 font-bold text-sm">
-                    <i class="fa-solid fa-floppy-disk mr-3"></i>
-                    Save Changes
-                </button>
             </div>
         </div>
 
