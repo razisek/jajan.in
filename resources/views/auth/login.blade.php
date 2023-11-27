@@ -37,7 +37,7 @@
             <p class="text-3xl font-bold mb-6">Masuk</p>
             <a href="{{ route('auth.google') }}"
                 class="flex justify-start items-center border-2 border-black px-8 py-3 w-4/5 rounded-full cursor-pointer text-sm">
-                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/5/53/Google_%22G%22_Logo.svg/2008px-Google_%22G%22_Logo.svg.png"
+                <img src="https://static-00.iconduck.com/assets.00/google-icon-2048x2048-czn3g8x8.png"
                     alt="google image" class="w-4">
                 <p class="flex-1 text-center">Continue With Google</p>
             </a>
