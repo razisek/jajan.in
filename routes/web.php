@@ -22,7 +22,9 @@ use Illuminate\Support\Facades\URL;
 |
 */
 
-URL::forceScheme('https');
+if (env('APP_ENV') === 'production') {
+    URL::forceScheme('https');
+}
 
 Route::get('/', function () {
     return view('welcome');
