@@ -21,9 +21,8 @@ class PageController extends Controller
             return [
                 'id' => $item->id,
                 'link' => $item->socialLink->link,
-                'name' => $item->socialLink->name,
                 'user' => $item->user,
-                'icon' => $item->socialLink->icon,
+                'icon' => $item->socialLink->getFirstMediaUrl($item->socialLink->code),
             ];
         });
 
