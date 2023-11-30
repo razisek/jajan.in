@@ -14,6 +14,8 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Http;
+use App\Services\XenditService;
+use Illuminate\Support\Facades\Storage;
 
 class PaymentController extends Controller
 {
@@ -34,6 +36,11 @@ class PaymentController extends Controller
         $page = Page::find($request->creator_id);
         $total = $page->unit->price * $request->quantity;
         $uuid = Str::uuid();
+
+        $xenditService = new XenditService();
+
+        $xendit = $xenditService->createQR($total, 'Jajanin untuk ' . $page->user->username . ' sebesar ' . $total . ' untuk ' . $request->quantity . ' ' . $page->unit->name);
+        dd($xendit);
 
         $midtrans = Http::withBasicAuth(env('SERVER_KEY_MIDTRANS'), '')->post(env('SANDBOX_MIDTRANS') . 'v2/charge', [
             "payment_type" => "qris",
@@ -56,10 +63,11 @@ class PaymentController extends Controller
         }
 
         $page->transactions()->create([
-            'transaction_no' => $response['transaction_id'],
+            'transaction_id' => $response['transaction_id'],
+            'reference_id' => $response['order_id'],
             'invoice_no' => 'JJN-' . time() . $page->id,
-            'payment_method' => 'qris',
-            'payment_status' => 'pending',
+            'payment_method' => 'QRIS',
+            'payment_status' => 'PENDING',
             'user_id' => auth()->user()->id,
             'message' => $request->message,
             'unit_id' => $page->unit_id,
@@ -83,6 +91,7 @@ class PaymentController extends Controller
 
     public function notification(Request $request)
     {
+        Storage::put('file.txt', $request->all());
         if ($request->transaction_status == 'settlement') {
             $transaction = Transaction::where('transaction_no', $request->transaction_id)->firstOrFail();
             $transaction->update([
