@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Transaction;
 use Carbon\Carbon;
 use Carbon\CarbonPeriod;
-use Illuminate\Support\Facades\DB;
-use Illuminate\Http\Request;
 use Spatie\QueryBuilder\QueryBuilder;
 
 class DashboardController extends Controller
@@ -15,8 +13,8 @@ class DashboardController extends Controller
     {
         $user = auth()->user();
         $balance = $user->page->balance->balance ?? 0;
-        $jajan = $user->page->transactions->where('payment_status', 'paid')->count();
-        $monthly = $user->page->transactions->where('payment_status', 'paid')->where('created_at', '>=', now()->subMonth())->sum('total');
+        $jajan = $user->page->transactions->where('payment_status', 'SUCCEEDED')->count();
+        $monthly = $user->page->transactions->where('payment_status', 'SUCCEEDED')->where('created_at', '>=', now()->subMonth())->sum('total');
 
         $endDate = Carbon::now();
         $startDate = Carbon::now()->subDays(30);

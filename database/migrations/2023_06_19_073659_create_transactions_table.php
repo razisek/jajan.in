@@ -13,7 +13,8 @@ return new class extends Migration
     {
         Schema::create('transactions', function (Blueprint $table) {
             $table->id();
-            $table->string('transaction_id');
+            $table->string('payment_method_id');
+            $table->string('payment_request_id');
             $table->string('reference_id');
             $table->string('invoice_no');
             $table->string('payment_method');
@@ -29,7 +30,6 @@ return new class extends Migration
             $table->integer('price');
             $table->integer('total');
             $table->text('qr');
-            $table->text('link_qr');
             $table->timestamp('expired_at');
             $table->timestamps();
         });

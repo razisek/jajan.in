@@ -37,7 +37,7 @@
             <p class="font-bold test-base">Perhatian!</p>
             <p class="text-sm">QR Code di atas hanya dapat digunakan untuk 1x transaksi</p>
         </div>
-        <a href="{{ route('page.payment-status', $transaction->transaction_no) }}">
+        <a href="{{ route('page.payment-status', $transaction->payment_request_id) }}">
             <div
                 class="bg-primary text-white px-4 py-2 text-center font-semibold text-base rounded-full mt-4 cursor-pointer">
                 Periksa Status Pembayaran

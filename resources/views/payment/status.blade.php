@@ -16,7 +16,7 @@
 <body class="bg-[#F3F3F3] h-screen w-full grid place-items-center">
     <div class="bg-white p-10 rounded-lg shadow-lg">
         <div class="flex items-center gap-3">
-            @if ($transaction->payment_status == 'paid')
+            @if ($transaction->payment_status == 'SUCCEEDED')
                 <div class="w-24 h-24 bg-[#3CD178] flex justify-center items-center text-white rounded-full">
                     <i class="bi bi-check-lg text-[50px]"></i>
                 </div>
@@ -27,7 +27,7 @@
                         Dibayar {{ \Carbon\Carbon::create($transaction->updated_at)->format('d F Y, H:i:s') }}
                     </p>
                 </div>
-            @elseif ($transaction->payment_status == 'pending')
+            @elseif ($transaction->payment_status == 'PENDING')
                 <div class="w-24 h-24 bg-secondary flex justify-center items-center text-white rounded-full">
                     <i class="bi bi-hourglass-bottom text-[50px]"></i>
                 </div>
@@ -66,10 +66,10 @@
             @endif
         </div>
         <div class="flex items-center justify-between mx-5 gap-3 mt-4">
-            @if ($transaction->payment_status == 'paid')
+            @if ($transaction->payment_status == 'SUCCEEDED')
                 <img src="{{ $transaction->page->user->getFirstMediaUrl('avatar') == '' ? 'https://ui-avatars.com/api/?background=random&name=' . $transaction->page->user->name : $transaction->page->user->getFirstMediaUrl('avatar') }}"
                     alt="ava" class="w-16 h-16 object-contain rounded-full border-2 border-[#3CD178]">
-            @elseif ($transaction->payment_status == 'pending')
+            @elseif ($transaction->payment_status == 'PENDING')
                 <img src="{{ $transaction->page->user->getFirstMediaUrl('avatar') == '' ? 'https://ui-avatars.com/api/?background=random&name=' . $transaction->page->user->name : $transaction->page->user->getFirstMediaUrl('avatar') }}"
                     alt="ava" class="w-16 h-16 object-contain rounded-full border-2 border-secondary">
             @elseif ($transaction->payment_status == 'cancel')
@@ -80,7 +80,7 @@
                     alt="ava" class="w-16 h-16 object-contain rounded-full border-2 border-gray-500">
             @endif
             <div>
-                @if ($transaction->payment_status == 'paid')
+                @if ($transaction->payment_status == 'SUCCEEDED')
                     <p class="text-base text-gray-600 mb-3">
                         Terima kasih sudah Jajanin {{ $transaction->page->user->name }} :)
                     </p>
@@ -89,7 +89,7 @@
                         <i class="bi bi-repeat"></i>
                         Jajanin Lagi
                     </a>
-                @elseif ($transaction->payment_status == 'pending')
+                @elseif ($transaction->payment_status == 'PENDING')
                     <p class="text-base text-gray-600 mb-3">
                         Selesaikan jajanin untuk {{ $transaction->page->user->name }} :)
                     </p>
@@ -99,7 +99,7 @@
                             <i class="bi bi-arrow-clockwise"></i>
                             Refresh
                         </div>
-                        <a href="{{ route('page.checkout', $transaction->transaction_no) }}"
+                        <a href="{{ route('page.checkout', $transaction->payment_request_id) }}"
                             class="bg-[#E7E7E7] px-3 py-1 rounded-full shadow-lg font-semibold text-[#737373] cursor-pointer">
                             <i class="bi bi-question-circle"></i>
                             Cara Bayar
@@ -150,8 +150,8 @@
                 <p class="font-semibold">QRIS</p>
             </div>
         </div>
-        <p class="text-sm mt-4">Order ID</p>
-        <p class="font-semibold text-sm">{{ $transaction->transaction_no }}</p>
+        <p class="text-sm mt-4">Reference ID</p>
+        <p class="font-semibold text-sm">{{ $transaction->reference_id }}</p>
     </div>
 </body>
 

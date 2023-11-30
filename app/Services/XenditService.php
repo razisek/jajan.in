@@ -45,8 +45,6 @@ class XenditService
             $QrParam
         );
 
-        $qr = $response->getPaymentMethod()->getQRCode()->getChannelProperties()->getQRString();
-
         return $response;
     }
 }

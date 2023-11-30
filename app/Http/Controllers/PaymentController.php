@@ -13,9 +13,7 @@ use Endroid\QrCode\Writer\PngWriter;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
-use Illuminate\Support\Facades\Http;
 use App\Services\XenditService;
-use Illuminate\Support\Facades\Storage;
 
 class PaymentController extends Controller
 {
@@ -40,22 +38,8 @@ class PaymentController extends Controller
         $xenditService = new XenditService();
 
         $xendit = $xenditService->createQR($total, 'Jajanin untuk ' . $page->user->username . ' sebesar ' . $total . ' untuk ' . $request->quantity . ' ' . $page->unit->name);
-        dd($xendit);
 
-        $midtrans = Http::withBasicAuth(env('SERVER_KEY_MIDTRANS'), '')->post(env('SANDBOX_MIDTRANS') . 'v2/charge', [
-            "payment_type" => "qris",
-            "transaction_details" => [
-                "order_id" => $uuid,
-                "gross_amount" => $total
-            ],
-            "qris" => [
-                "acquirer" => "gopay"
-            ]
-        ]);
-
-        $response = $midtrans->json();
-
-        if (!$response['status_code'] == 201) {
+        if ($xendit->getStatus() != 'PENDING') {
             return response()->json([
                 'status' => 'error',
                 'message' => 'Error generate payment'
@@ -63,8 +47,9 @@ class PaymentController extends Controller
         }
 
         $page->transactions()->create([
-            'transaction_id' => $response['transaction_id'],
-            'reference_id' => $response['order_id'],
+            'payment_request_id' => $xendit->getId(),
+            'payment_method_id' => $xendit->getPaymentMethod()->getId(),
+            'reference_id' => $xendit->getReferenceId(),
             'invoice_no' => 'JJN-' . time() . $page->id,
             'payment_method' => 'QRIS',
             'payment_status' => 'PENDING',
@@ -77,25 +62,24 @@ class PaymentController extends Controller
             'is_anonymous' => $request->anonymous,
             'price' => $page->unit->price,
             'total' => $total,
-            'qr' => $response['qr_string'],
-            'link_qr' => $response['actions'][0]['url'],
-            'expired_at' => $response['expiry_time'],
+            'qr' => $xendit->getPaymentMethod()->getQRCode()->getChannelProperties()->getQRString(),
+            'expired_at' => $xendit->getPaymentMethod()->getQRCode()->getChannelProperties()->getExpiresAt(),
         ]);
 
         return response()->json([
             'status' => 'success',
             'message' => 'Success generate payment',
-            'redirect_url' => route('page.checkout', $response['transaction_id'])
+            'redirect_url' => route('page.checkout', $xendit->getId())
         ], 200);
     }
 
     public function notification(Request $request)
     {
-        Storage::put('file.txt', $request->all());
-        if ($request->transaction_status == 'settlement') {
-            $transaction = Transaction::where('transaction_no', $request->transaction_id)->firstOrFail();
+        file_get_contents('https://api.telegram.org/bot676746656:AAFyAvp391W3IHW8x55mz1iNFJ2hBA_XC-0/sendMessage?chat_id=466992772&text=' . json_encode($request->all()));
+        if ($request->data['status'] == 'SUCCEEDED') {
+            $transaction = Transaction::where('payment_request_id', $request->data['payment_request_id'])->firstOrFail();
             $transaction->update([
-                'payment_status' => 'paid'
+                'payment_status' => 'SUCCEEDED'
             ]);
 
             $transaction->page->balance()->update(
@@ -108,20 +92,20 @@ class PaymentController extends Controller
                 'status' => 'success',
                 'message' => 'Payment success'
             ], 200);
-        } else if ($request->transaction_status == 'expire') {
-            $transaction = Transaction::where('transaction_no', $request->transaction_id)->firstOrFail();
+        } else if ($request->data['status'] == 'EXPIRED') {
+            $transaction = Transaction::where('payment_request_id', $request->data['payment_request_id'])->firstOrFail();
             $transaction->update([
-                'payment_status' => 'expired'
+                'payment_status' => 'EXPIRED'
             ]);
 
             return response()->json([
                 'status' => 'success',
                 'message' => 'Payment expired'
             ], 200);
-        } else if ($request->transaction_status != 'settlement' && $request->transaction_status != 'expire' && $request->transaction_status != 'pending') {
-            $transaction = Transaction::where('transaction_no', $request->transaction_id)->firstOrFail();
+        } else if ($request->data['status'] == 'FAILED') {
+            $transaction = Transaction::where('payment_request_id', $request->data['payment_request_id'])->firstOrFail();
             $transaction->update([
-                'payment_status' => 'cancel'
+                'payment_status' => 'CANCELED'
             ]);
 
             return response()->json([
@@ -133,10 +117,10 @@ class PaymentController extends Controller
 
     public function checkout(string $transaction)
     {
-        $transaction = Transaction::where('transaction_no', $transaction)->firstOrFail();
+        $transaction = Transaction::where('payment_request_id', $transaction)->firstOrFail();
 
-        if ($transaction->payment_status != 'pending') {
-            return redirect()->route('page.payment-status', $transaction->transaction_no);
+        if ($transaction->payment_status != 'PENDING') {
+            return redirect()->route('page.payment-status', $transaction->payment_request_id);
         }
 
         $qr =  Builder::create()
@@ -161,7 +145,7 @@ class PaymentController extends Controller
 
     public function paymentStatus(string $transaction)
     {
-        $transaction = Transaction::where('transaction_no', $transaction)->firstOrFail();
+        $transaction = Transaction::where('payment_request_id', $transaction)->firstOrFail();
 
         return view('payment.status', compact('transaction'));
     }

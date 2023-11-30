@@ -29,7 +29,7 @@ class CreatorController extends Controller
         $unit = $page->unit()->first();
 
         $transactions = $page->transactions()
-            ->where('payment_status', 'paid')
+            ->where('payment_status', 'SUCCEEDED')
             ->orderBy('created_at', 'desc')
             ->get();
 
