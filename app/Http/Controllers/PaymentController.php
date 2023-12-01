@@ -75,7 +75,6 @@ class PaymentController extends Controller
 
     public function notification(Request $request)
     {
-        file_get_contents('https://api.telegram.org/bot676746656:AAFyAvp391W3IHW8x55mz1iNFJ2hBA_XC-0/sendMessage?chat_id=466992772&text=' . json_encode($request->all()));
         if ($request->data['status'] == 'SUCCEEDED') {
             $transaction = Transaction::where('payment_request_id', $request->data['payment_request_id'])->firstOrFail();
             $transaction->update([

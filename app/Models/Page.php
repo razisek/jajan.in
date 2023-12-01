@@ -47,4 +47,9 @@ class Page extends Model implements HasMedia
     {
         return $this->hasOne(Balance::class);
     }
+
+    public function bank()
+    {
+        return $this->hasOne(Bank::class);
+    }
 }

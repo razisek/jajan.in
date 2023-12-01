@@ -76,6 +76,8 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
 
     // balance
     Route::get('balance', [BalanceController::class, 'index'])->name('page.balance');
+    Route::post('balance/check-bank', [BalanceController::class, 'checkAccountBank'])->name('api.balance.check-bank');
+    Route::post('balance/save-bank', [BalanceController::class, 'saveBankAccount'])->name('api.balance.save-bank');
 
     // support
     Route::get('supporters/users', [SupportController::class, 'supportUser'])->name('page.support.user');

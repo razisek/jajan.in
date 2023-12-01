@@ -2,6 +2,7 @@
 
 namespace App\Services;
 
+use Illuminate\Support\Facades\Http;
 use Xendit\Configuration;
 use Xendit\PaymentRequest\PaymentRequestApi;
 use Xendit\PaymentRequest\PaymentRequestParameters;
@@ -46,5 +47,49 @@ class XenditService
         );
 
         return $response;
+    }
+
+    public function getAvailableBanks()
+    {
+        $request = Http::withBasicAuth(env('XENDIT_API_KEY'), '')
+            ->get('https://api.xendit.co/available_disbursements_banks');
+
+        $banks = $request->json();
+        return $banks;
+    }
+
+    private function apiValidateBankAccout(string $number, string $bank)
+    {
+        $request = Http::withBasicAuth(env('XENDIT_API_KEY'), '')
+            ->post('https://api.xendit.co/bank_account_data_requests', [
+                'bank_account_number' => $number,
+                'bank_code' => $bank
+            ]);
+
+        $bank = $request->json();
+
+        return $bank;
+    }
+
+    public function validateBankAccount(string $number, string $bank)
+    {
+        $bankApi = $this->apiValidateBankAccout($number, $bank);
+
+        if (!isset($bankApi['status'])) {
+            return [
+                'status' => 'ERROR',
+                'message' => 'Nomor rekening bank penerima tidak valid'
+            ];
+        }
+
+        while ($bankApi['status'] == 'PENDING') {
+            sleep(5);
+            $bankApi = $this->apiValidateBankAccout($number, $bank);
+            if ($bankApi['status'] != 'PENDING') {
+                break;
+            }
+        }
+
+        return $bankApi;
     }
 }
