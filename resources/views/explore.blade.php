@@ -57,25 +57,25 @@
         <div class="flex justify-center">
             <ul class="flex flex-wrap -mb-px text-lg font-medium text-center text-black mt-5">
                 <li class="mr-2">
-                    <a href="{{ route('page.page.index') }}"
+                    <a href="#"
                         class="inline-flex p-4 rounded-t-lg group font-semibold text-primary border-b-2 border-primary">
                         <i class="bi bi-star mr-2"></i>Favorite
                     </a>
                 </li>
                 <li class="mr-2">
-                    <a href="{{ route('page.unit.index') }}"
+                    <a href="#"
                         class="inline-flex p-4 rounded-t-lg group hover:text-primary hover:border-b hover:border-primary">
                         <i class="bi bi-person-check mr-2"></i>Pilihan
                     </a>
                 </li>
                 <li class="mr-2">
-                    <a href="{{ route('page.unit.index') }}"
+                    <a href="#"
                         class="inline-flex p-4 rounded-t-lg group hover:text-primary hover:border-b hover:border-primary">
                         <i class="bi bi-trophy mr-2"></i>Popular
                     </a>
                 </li>
                 <li class="mr-2">
-                    <a href="{{ route('page.unit.index') }}"
+                    <a href="#"
                         class="inline-flex p-4 rounded-t-lg group hover:text-primary hover:border-b hover:border-primary">
                         <i class="bi bi-graph-up-arrow mr-2"></i>Trending
                     </a>
