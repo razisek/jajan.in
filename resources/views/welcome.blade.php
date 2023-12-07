@@ -24,7 +24,8 @@
         </div>
         <div class="menu_navigation">
             <ul class="flex content-center">
-                <li><a class="nav_pad flex" href="{{ route('page.explore') }}"><i class="bi bi-search mr-3"></i>Explorer Creator</a>
+                <li><a class="nav_pad flex" href="{{ route('page.explore') }}"><i class="bi bi-search mr-3"></i>Explorer
+                        Creator</a>
                 </li>
                 <li>
                     <div class="menu_separator"></div>
@@ -310,11 +311,20 @@
         <footer class="">
             <div
                 class="container px-5 py-24 mx-auto flex md:items-center lg:items-start md:flex-row md:flex-nowrap flex-wrap flex-col">
-                <div class="w-64 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
+                <div class="w-80 flex-shrink-0 md:mx-0 mx-auto text-center md:text-left">
                     <img src="https://res.cloudinary.com/dgmwbkto1/image/upload/v1687538877/jajanin_logo2_clbyam.png"
                         alt="">
                     <p class="mt-2 text-sm text-white">Our vision is to provide convenience and help increase your
                         sales business.</p>
+                    <div class="mt-6 flex gap-3 text-base">
+                        <i class="bi bi-geo-alt-fill text-white"></i>
+                        <p>Jl. Ring Road Utara, Ngringin, Condongcatur, Kec. Depok, Kabupaten Sleman, Daerah Istimewa
+                            Yogyakarta 55281</p>
+                    </div>
+                    <div class="mt-4 flex gap-3 text-base">
+                        <i class="bi bi-telephone-fill text-white"></i>
+                        <p>0896-0295-7427</p>
+                    </div>
                 </div>
                 <div
                     class="flex-grow flex flex-wrap md:pl-20 -mb-10 md:mt-0 mt-10 md:text-left text-center justify-end">
